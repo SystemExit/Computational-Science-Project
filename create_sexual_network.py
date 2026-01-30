@@ -326,6 +326,7 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
 
 
 if __name__ == '__main__':
+    print('Testing model validity... (3 tests)')
     #test correctness of sexual links 
     valid = True
     for _ in range(100):
