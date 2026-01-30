@@ -308,13 +308,17 @@ def apply_settings():
     layout, and redraws the visualization to reflect the updated settings.
     """
     global running, t, model, models, pos
+
+    # Stop the animation and reset time
     running = False
     t = 0
 
+    # Recreate the models using current input values
     models = create_models()
     model = models[0]
-    pos = nx.random_layout(model.graph, seed=int(network_seed_input.get()))
 
+    # Recompute the network layout and redraw with the new settings
+    pos = nx.random_layout(model.graph, seed=int(network_seed_input.get()))
     redraw()
 
 def reset_model():
@@ -327,19 +331,21 @@ def reset_model():
     """
     global running, t, model, models, pos
 
+    # Stop animation
     running = False
 
+    # Reset all variables to the default setting
     for name, var, default in settings:
         var.set(default)
-
     use_seed_var.set(False)
 
+    # Reset time and recreate models
     t = 0
-
     models = create_models()
     model = models[0]
-    pos = nx.random_layout(model.graph, seed=int(network_seed_input.get()))
 
+    # Recompute the network layout and redraw with the new settings
+    pos = nx.random_layout(model.graph, seed=int(network_seed_input.get()))
     redraw()
 
 def show_network_plot():
@@ -855,4 +861,5 @@ redraw()
 
 
 window.mainloop()
+
 
