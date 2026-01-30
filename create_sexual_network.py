@@ -428,16 +428,9 @@ if __name__ == '__main__':
                 
 
     print(f'Test 1: Network is valid: {valid}')
-    # print(f'female homo:  {f_homo_count/1000}    --   {0.50*0.021}')
-    # print(f'male homo:    {m_homo_count/1000}    --   {0.50*0.049}')
-    # print(f'female hetero:{f_hetero_count/1000}   --   {0.50*0.907}')
-    # print(f'male hetero:  {m_hetero_count/1000}   --   {0.50*0.900}')
-    # print(f'female bi:    {f_bi_count/1000}   --   {0.50*0.072}')
-    # print(f'male bi:      {m_bi_count/1000}   --   {0.50*0.051}')
-
 
     #################
-    f_ho, m_ho = 0.0, 0/0
+    f_ho, m_ho = 0.0, 0.0
     f_he, m_he = 0.0, 0.0
     f_bi, m_bi = 0.0, 0.0
     gender_error, klasse_error = None, None
@@ -466,7 +459,7 @@ if __name__ == '__main__':
                 print(f"Klasse {klasse} not one of the expected values: ['male homosexual', 'male heterosexual', 'male bisexual', 'female homosexual', 'female heterosexual', 'female bisexual']")
 
     print()
-    print('Test 2:')
+    print('Test 2: proportion of classes in network vs proportions used in the parameters')
     print(f'female homo:  {round(f_ho/100, 4)}   --   {0.50*0.021}')
     print(f'male homo:    {round(m_ho/100, 4)}   --   {0.50*0.049}')
     print(f'female hetero:{round(f_he/100, 4)}   --   {0.50*0.907}')
