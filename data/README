@@ -3,11 +3,9 @@ The dataset is too large for GitHub
 Download it from:
 - https://www.icpsr.umich.edu/web/NAHDAP/studies/22140/datadocumentation#
 Click on the download button from 'DS2 Pairs of Persons -- Egodyads', and select the 'Delimited' option.
+you can find the egodyads file under the name "22140-0002-Data.tsv". 
 
 Place the file in `data/` before running the code.
 
-
-The egodyads dataset used to create the network for the network model can be found at https://www.icpsr.umich.edu/web/NAHDAP/studies/22140/datadocumentation#, "DS2 Pairs of Person DS2 Pairs of Persons -- Egodyads"
-download the dataset as "Delimited" (.tsv file), there you can find the egodyads file under the name "22140-0002-Data.tsv". To inspect the metadata of the .tsv file 
-one should take a look at "22140-0002-Codebook.pdf".
-Morris, M., & Rothenberg, R. (2011). Hiv transmission network metastudy project: An archive of data from eight network studies, 1988--2001.
+To inspect the metadata of the .tsv file one should take a look at "22140-0002-Codebook.pdf".
+Morris, M., & Rothenberg, R. (2011). Hiv transmission network metastudy project: An archive of data from eight network stud
