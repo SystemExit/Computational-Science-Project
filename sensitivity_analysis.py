@@ -206,28 +206,29 @@ analysis_results = {'initial_outbreak_proportion': 16,
 
 labels = []
 values = []
-list_of_parameters_that_can_be_altered = [
+list_of_parameters_that_cannot_be_altered = [
 "condom_efficacy male-female",
 "condom_efficacy female-female",
 "condom_efficacy female-male",
 "condom_efficacy male-male",
 "infection_chances male-female",
-"virus_spread_msf",
 "infection_chances female-female",
 "infection_chances female-male",
+"infection_chances male-male",
+"virus_spread_msf",
 "virus_spread_fsm",
+"virus_spread_fsf",
+"virus_spread_msm",
 "sexual_frequencies male heterosexual",
 "sexual_frequencies female heterosexual",
-"infection_chances male-male",
-"intervention_multipliers art",
-"virus_spread_fsf",
 "sexual_frequencies male homosexual",
-"intervention_multipliers prep",
 "sexual_frequencies female homosexual",
-"virus_spread_msm",
+"sexual_frequencies male bisexual",
+"sexual_frequencies female bisexual",
+"intervention_multipliers art",
+"intervention_multipliers prep",
 "art_multiplier",
 "prep_multiplier",
-"sexual_frequencies male bisexual",
 "initial_outbreak_proportion",
 "intervention_multipliers none"
 ]
@@ -244,7 +245,7 @@ for key, val in analysis_results.items():
 sorted_items = sorted(zip(labels, values), key=lambda x: x[1], reverse=True)
 labels_sorted, values_sorted = zip(*sorted_items)
 colors = [
-    "#7b0306" if label in list_of_parameters_that_can_be_altered else "gray"
+    "#7b0306" if label in list_of_parameters_that_cannot_be_altered else "gray"
     for label in labels_sorted
 ]
 labels_sorted = [label.replace("_", " ") for label in labels_sorted]
@@ -253,11 +254,14 @@ plt.figure(figsize=(14, 6))
 plt.bar(labels_sorted, values_sorted, color=colors)
 legend_elements = [
     Patch(facecolor="#7b0306", label="Cannot be controlled by government policy"),
-    Patch(facecolor="gray", label="Can be controlled by government policy")
+    Patch(facecolor="gray", label="Might be controlled by government policy")
 ]
 plt.legend(handles=legend_elements)
 plt.xticks(rotation=30, ha="right") # Rotate the labels so you don't break your neck reading them
 plt.ylabel("Maximum deviation in susceptible population")
 plt.title("Sensitivity Analysis (10% Parameter Perturbation)")
 plt.tight_layout()
+filename = 'plots/sensitivity_analysis.png'
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+print(f"Saved: {filename}")
 plt.show()
