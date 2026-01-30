@@ -2,8 +2,7 @@ import networkx as nx
 import random
 import sys
 import math
-# from create_sexual_network_final import create_sexual_network
-from create_sexual_network_ad_infinitum import create_sexual_network
+from create_sexual_network import create_sexual_network
 
 #todo condom_efficiency aanpassen in alle bestanden
 #todo in visuals de plot namen aanpassen zoals ik nu in visuals_anne heb, en acute en chronic weer scheiden.
@@ -357,4 +356,5 @@ if __name__ == '__main__':
     print(model.count_classes()) #todo remove
     for t in range(520):
         model.step()
+
     print(t, model.count_states())
