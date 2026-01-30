@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 # Find files
-csv_files = glob.glob("data/**/*.csv", recursive=True)
+csv_files = glob.glob("data/sim_results/**/*.csv", recursive=True)
 all_results = []
 
 for file in csv_files:
@@ -101,3 +101,4 @@ plot_group_with_bounds(group_2, "PrEP Effectiveness by Sexual Orientation", "fin
 group_3 = ['targeted_m_homo', 'targeted_m_hetero', 'targeted_m_bi',
            'targeted_f_homo', 'targeted_f_hetero', 'targeted_f_bi']
 plot_group_with_bounds(group_3, "PrEP Effectiveness: Detailed Sub-group Analysis", "final_susc_six_groups.png")
+
