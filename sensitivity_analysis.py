@@ -63,7 +63,7 @@ def f(params):
     model.check_frequencies = params["check_frequencies"]
     model.sexual_frequencies = params["sexual_frequencies"]
     model.condom_usage = params["condom_usage"]
-    model.condom_efficiency = params["condom_efficiency"]
+    model.condom_efficacy = params["condom_efficacy"]
     model.infection_chances = params["infection_chances"]
     model.intervention_multipliers = params["intervention_multipliers"]
   
@@ -173,7 +173,7 @@ parameters = {
     },
     "condom_usage" : {'male-male': 0.258, 'male-female': 0.200, 
                     'female-male': 0.200, 'female-female': 0.0},
-    "condom_efficiency" : {'male-male': 0.25, 'male-female': 0.20, 
+    "condom_efficacy" : {'male-male': 0.25, 'male-female': 0.20, 
                         'female-male': 0.20, 'female-female': 0.0},
     "infection_chances" : {'male-male': 1.49/100, 'male-female': 0.08/100, 
                         'female-male': 0.04/100, 'female-female': 0.0/100},
@@ -195,7 +195,7 @@ analysis_results = {'initial_outbreak_proportion': 16,
 'check_frequencies': {'female homosexual': 19, 'male homosexual': 46, 'female heterosexual': 31, 'male heterosexual': 18, 'female bisexual': 25, 'male bisexual': 27}, 
 'sexual_frequencies': {'female homosexual': 26, 'male homosexual': 28, 'female heterosexual': 40, 'male heterosexual': 41, 'female bisexual': 23, 'male bisexual': 20}, 
 'condom_usage': {'male-male': 37, 'male-female': 27, 'female-male': 46, 'female-female': 36}, 
-'condom_efficiency': {'male-male': 15, 'male-female': 43, 'female-male': 22, 'female-female': 25}, 
+'condom_efficacy': {'male-male': 15, 'male-female': 43, 'female-male': 22, 'female-female': 25}, 
 'infection_chances': {'male-male': 40, 'male-female': 82, 'female-male': 52, 'female-female': 54}, 
 'intervention_multipliers': {'prep': 28, 'art': 30, 'none': 12}
 }
@@ -203,10 +203,10 @@ analysis_results = {'initial_outbreak_proportion': 16,
 labels = []
 values = []
 list_of_parameters_that_can_be_altered = [
-"condom_efficiency male-female",
-"condom_efficiency female-female",
-"condom_efficiency female-male",
-"condom_efficiency male-male",
+"condom_efficacy male-female",
+"condom_efficacy female-female",
+"condom_efficacy female-male",
+"condom_efficacy male-male",
 "infection_chances male-female",
 "virus_spread_msf",
 "infection_chances female-female",
