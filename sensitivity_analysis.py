@@ -3,6 +3,10 @@ import random
 import copy 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+import os
+
+# make sure 'plots' directory exists to save plot in
+os.makedirs('plots', exist_ok=True)
 
 def max_absolute_difference(lst):
     """
