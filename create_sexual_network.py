@@ -39,16 +39,16 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
     All nodes in the networkx graph are labeled with the class ("klasse"), gender ("gender") and HIV status ("HIV_status") attribute. After creaing the simulated sexual network, a portion of 
     the population is infected with HIV, according to the parameter pr_infected_initial and the proportion of nodes that are infected in each class in Egodyads network. 
 
-    :N:                         amount of agents in the simulated sexual network
-    :pr_infected_initial:       proportion of agents that are infected in the simulated sexual network
+    :N:                         amount of nodes in the simulated sexual network
+    :pr_infected_initial:       proportion of nodes that are infected in the simulated sexual network
     :seed:                      initialisation of random number generator
-    :pr_male_homosexual:        proportion of agents in that are male and have intercourse only with males
-    :pr_male_heterosexual:      proportion of agents that are male and have intercourse only with females
-    :pr_male_bisexual:          proportion of agents that are male and have intercourse with females and males
-    :pr_female_homosexual:      proportion of agents in that are female and have intercourse only with females
-    :pr_female_heterosexual:    proportion of agents that are female and have intercourse only with males
-    :pr_female_bisexual:        proportion of agents that are female and have intercourse with females and males
-    :data_file_name:            file name of the egodyads dataset   
+    :pr_male_homosexual:        proportion of nodes that are male and have intercourse only with males
+    :pr_male_heterosexual:      proportion of nodes that are male and have intercourse only with females
+    :pr_male_bisexual:          proportion of nodes that are male and have intercourse with females and males
+    :pr_female_homosexual:      proportion of nodes that are female and have intercourse only with females
+    :pr_female_heterosexual:    proportion of nodes that are female and have intercourse only with males
+    :pr_female_bisexual:        proportion of nodes that are female and have intercourse with females and males
+    :data_file_name:            file path name of the egodyads dataset   
 
     Default parameters for sexual parameters have been extracted from reported sexual identity accross 28 nations, see Table 4. Rahman, Q., Xu, Y., Lippa, R. A., & Vasey, P. 
     L. (2020). Prevalence of Sexual Orientation Across 28 Nations and Its Association with Gender Equality, Economic Development, and Individualism. Archives of sexual 
