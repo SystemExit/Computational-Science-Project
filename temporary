@@ -1,0 +1,26 @@
+def sexual_frequency(G:nx.Graph) -> nx.Graph:
+    """
+    Add probabilities of having sex per week as weights to all edged of G.
+    """
+    #average amount of sex per week per class
+    sexual_frequencies = { 
+            "male homosexual": 2.25,
+            "male heterosexual": 1.65,
+            "male bisexual": 2.25,
+            "female homosexual": 1.25,
+            "female heterosexual": 1.65,
+            "female bisexual": 1.65,
+        }
+    
+    # calculate average sexual probability per node-neighbour relation
+    freq_per_edge = {}
+    for node in G.nodes():
+        klasse = G.nodes[node]['klasse']
+        freq_per_neighbour = sexual_frequencies[klasse] / len(list(G.neighbors(node)))
+        freq_per_edge[node] = freq_per_neighbour
+    
+    # update weight for each edge as average probability of both nodes
+    for (n1, n2) in G.edges():
+        G[n1][n2]["weight"] = (freq_per_edge[n1] + freq_per_edge[n2]) / 2 
+    
+    return G
