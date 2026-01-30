@@ -13,7 +13,7 @@ Generating the data for the plot for one mode (e.g. "targeted_m_homo") takes ~35
 
 **Parameters of the HIV model, description, reference.***  
 `condom_usage`, proportion of sexual interactions that involve the use of condoms out of all interactions between two gender types, Reece et al. 2010.  
-`condom_efficiency`, proportion of sexual interactions that do not result in the transmission of HIV out of all interactions that involve the use of condoms between two genders, Smith et al. 1999 and Weller et al. 1996.  
+`condom_efficacy`, proportion of sexual interactions that do not result in the transmission of HIV out of all interactions that involve the use of condoms between two genders, Smith et al. 1999 and Weller et al. 1996.  
 
 *If multiple empirical parameter values were reported, e.g. condom usage reported by heterosexual men and condom usage reported by heterosexual women, the mean of the reported values was assigned as parameter value.
 
