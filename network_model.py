@@ -8,6 +8,7 @@ from create_sexual_network import create_sexual_network
 #todo in visuals de plot namen aanpassen zoals ik nu in visuals_anne heb, en acute en chronic weer scheiden.
 #todo chaja en mijn plot bestand in1 gooien of duidelijk labelen
 #todo create_network wat gecommente lines weghalen onderaan
+#todo sexual_frequencies and other parameters in readme
 
 class NetworkModel():
     """
@@ -31,7 +32,6 @@ class NetworkModel():
         mode: ------------- Which group of people initially takes PrEP (none, random or targeted)
         prep_amount: ------ Proportion of the target group (specofied in 'mode') initially taking PrEP
         check_frequencies:  Dictionary of probabilities of checking for HIV per week, per sexual class
-        sexual_frequencies: #todo remove
         condom_usage: ----- Probability of using a condom per sexual act, per sexuality
         condom_efficacy: -- Proportion of infection probability left when using condoms, per sexuality
     """
@@ -61,14 +61,6 @@ class NetworkModel():
             "female bisexual": 0.004,
             "male bisexual": 0.02,
         },
-        sexual_frequencies = { #todo remove, staat in create_network (check!!!)
-            "female homosexual": 1.25,
-            "male homosexual": 2.25,
-            "female heterosexual": 1.65,
-            "male heterosexual": 1.65,
-            "female bisexual": 1.65,
-            "male bisexual": 2.25,
-        },
         condom_usage = {'male-male': 0.258, 'male-female': 0.200, 
                         'female-male': 0.200, 'female-female': 0.0},
         condom_efficacy = {'male-male': 0.25, 'male-female': 0.20, 
@@ -81,7 +73,6 @@ class NetworkModel():
         self.infection_multipliers = {'acute': acute_multiplier, 'chronic': 1, 'aids': aids_multiplier}
         self.intervention_multipliers = {'prep': prep_multiplier, 'art': art_multiplier, 'none': 1}
         self.check_frequencies = check_frequencies
-        self.sexual_frequencies = sexual_frequencies
         self.condom_usage = condom_usage
         self.condom_efficacy = condom_efficacy
         self.acute_to_chronic = acute_to_chronic
@@ -358,3 +349,4 @@ if __name__ == '__main__':
         model.step()
 
     print(t, model.count_states())
+
