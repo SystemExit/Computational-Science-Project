@@ -58,9 +58,12 @@ def redraw():
     of nodes. After updating the network view, the statistics plots are
     refreshed to stay in sync with the model.
     """
+
+    # Reset the plot before redrawing the network
     ax.clear()
     ax.set_axis_off()
 
+    # Draw edges and nodes and legend with the correct state color
     nx.draw_networkx_edges(model.graph, pos, ax=ax, alpha=0.15, width=0.5)
     colors = [state_colors.get(model.graph.nodes[n]["state"], "lightgray") for n in model.graph.nodes]
     nx.draw_networkx_nodes(model.graph, pos, ax=ax, node_size=15, node_color=colors)
@@ -69,12 +72,13 @@ def redraw():
                     markerfacecolor=c, markeredgecolor='none', label=s.capitalize())
              for s, c in state_colors.items()],
     loc="upper right", fontsize=8, frameon=True
-)
+    )
 
+    # Update the title so it has the correct timestep noted
     ax.set_title(f"t = {t}   |   nodes = {model.graph.number_of_nodes()}")
 
+    # Refresh canvas and sync stats view if active
     canvas.draw_idle()
-
     if current_view == "stats":
         redraw_stats()
 
@@ -87,14 +91,18 @@ def step_once():
     and redraws the network and statistics plots to reflect the new state.
     """
     global t
+
+    # Stop if max t has been reached
     if t >= int(max_t_input.get()):
         return
+
+    # Step all models and update t
     for m in models:
         m.step()
     t += 1
 
+    # Update GUI
     window.title(f"Network Model | t = {t}")
-
     if current_view == "network":
         redraw()
     else:
@@ -110,27 +118,32 @@ def tick():
     statistics plots, and then runs again after a specified delay. 
     """
     global running, t
+
+    # Exit if paused or max timestep reached
     if not running or t >= int(max_t_input.get()):
         return
 
+    # Determine how many steps to run this update
     max_t = int(max_t_input.get())
     steps_per_update = max(1, int(steps_per_update_input.get()))
     steps = min(steps_per_update, max_t - t)
 
+    # Advance the model for the computed number of steps
     for _ in range(steps):
         for m in models:
             m.step()
         t += 1
-        if not running: 
+        if not running:
             break
 
+    # Update UI and redraw active view
     window.title(f"Network Model | t = {t}")
-
     if current_view == "network":
         redraw()
     else:
         redraw_stats()
 
+    # Schedule the next tick
     window.after(int(delay_input.get()), tick)
 
 def start_animation():
@@ -228,18 +241,20 @@ def add_variable_block(
         entry_col=1
     )
     """
+    # Create a variable to store the value (int or float) and remember its default so it can be reset if needed
     if value_type == "int":
         value = ctk.IntVar()
         value.set(int(default))
     else:
         value = ctk.DoubleVar()
         value.set(float(default))
-
     settings.append((text, value, default))
 
+    # Create and place the label
     label = ctk.CTkLabel(parent, text=text)
     label.grid(row=label_row, column=label_col, padx=padx, pady=pady, sticky="w")
 
+    # If the input type is a slider, create a slider and an entry field
     if input_type == "slider":
         slider_widget = ctk.CTkSlider(
             parent,
@@ -254,6 +269,10 @@ def add_variable_block(
         entry.grid(row=entry_row, column=entry_col, padx=padx, pady=pady)
 
         def slider_moved(val):
+            """
+            Update the stored value when the slider is moved,
+            keeping the entry field in sync.
+            """
             if value_type == "int":
                 value.set(int(round(float(val))))
             else:
@@ -262,13 +281,18 @@ def add_variable_block(
         slider_widget.configure(command=slider_moved)
 
         def entry_changed(*args):
+            """
+            Update the slider position when the entry value changes.
+            Ignores invalid or incomplete input.
+            """
             try:
                 slider_widget.set(float(value.get()))
             except ValueError:
                 pass
 
         value.trace("w", entry_changed)
-
+        
+    # Otherwise, create only an entry field
     else:
         entry = ctk.CTkEntry(parent, width=70, textvariable=value)
         entry.grid(row=entry_row, column=entry_col, padx=padx, pady=pady, sticky="w")
@@ -831,3 +855,4 @@ redraw()
 
 
 window.mainloop()
+
