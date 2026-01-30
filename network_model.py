@@ -343,10 +343,15 @@ if __name__ == '__main__':
         print(f"Unknown mode: {mode} not in {str(modes)}")
         sys.exit(1)
 
-    model = NetworkModel(mode = "random") 
-    print(model.count_classes()) #todo remove
+    print(f'Creating model with mode {mode}')
+    model = NetworkModel(mode = mode) 
+
+    print('Class proportions in network:')
+    print(model.count_classes())
+    print('Running model...')
     for t in range(520):
         model.step()
+    print('Model states after 520 weeks (10 years)')
+    print(model.count_states())
 
-    print(t, model.count_states())
 
