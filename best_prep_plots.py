@@ -28,7 +28,7 @@ plt.grid(True, alpha=0.5)
 plt.legend()
 filename = 'plots/susceptible-standard_vs_mhomo.png'
 plt.savefig(filename, dpi=300, bbox_inches='tight')
-print(f"Opgeslagen: {filename}")
+print(f"Saved: {filename}")
 plt.show()
 
 # acute and chronic for standard mode
@@ -50,7 +50,7 @@ plt.grid(True, alpha=0.5)
 plt.legend()
 filename = 'plots/acute-chronic_standard.png'
 plt.savefig(filename, dpi=300, bbox_inches='tight')
-print(f"Opgeslagen: {filename}")
+print(f"Saved: {filename}")
 plt.show()
 
 # aids and dead for standard mode
@@ -72,9 +72,10 @@ plt.grid(True, alpha=0.5)
 plt.legend()
 filename = 'plots/aids-dead_standard.png'
 plt.savefig(filename, dpi=300, bbox_inches='tight')
-print(f"Opgeslagen: {filename}")
+print(f"Saved: {filename}")
 plt.show()
 plt.show()
+
 
 
 
