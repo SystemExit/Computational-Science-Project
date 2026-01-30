@@ -32,7 +32,7 @@ def sexual_frequency(G:nx.Graph) -> nx.Graph:
 
 def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_heterosexual=0.50*0.900, pr_male_homosexual=0.50*0.049, pr_male_bisexual=0.50*0.051,
                           pr_female_heterosexual=0.50*0.907, pr_female_homosexual=0.50*0.021, pr_female_bisexual=0.50*0.072,
-                          data_file_name="22140-0002-Data.tsv"):
+                          data_file_name="data/22140-0002-Data.tsv"):
     """returns a networkx graph that represents a sexual network of N nodes, where each node (female/male) has at least one edge (sexual relationship) with another node. 
     Each node is sorted into one of the six classes: male homosexual/male heterosexual/male bisexual/female homosexual/female heterosexual/female bisexual, and its 
     degree is determined by sampling from the degree distribution of the nodes of that class in the network formed by the egodyads dataset (Morris & Rothenberg, 2011).
