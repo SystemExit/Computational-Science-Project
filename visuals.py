@@ -397,7 +397,7 @@ def redraw_stats():
     stats_ax_4.set_title("AIDS / Dead")
 
     for ax in [stats_ax_1, stats_ax_2, stats_ax_3, stats_ax_4]:
-        ax.set_xlabel("Weeks")
+        ax.set_xlabel("t (weeks)")
         ax.set_ylabel("People")
 
     stats_fig.suptitle(f"t = {t}   |   nodes = {n}")
@@ -828,5 +828,6 @@ pos = nx.random_layout(model.graph, seed=int(network_seed_input.get()))
 #replace all instances with either random_layout or spring_layout for either speed or looks
 
 redraw()
+
 
 window.mainloop()
