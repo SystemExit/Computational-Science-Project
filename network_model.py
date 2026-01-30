@@ -4,12 +4,6 @@ import sys
 import math
 from create_sexual_network import create_sexual_network
 
-#todo condom_efficiency aanpassen in alle bestanden
-#todo in visuals de plot namen aanpassen zoals ik nu in visuals_anne heb, en acute en chronic weer scheiden.
-#todo chaja en mijn plot bestand in1 gooien of duidelijk labelen
-#todo create_network wat gecommente lines weghalen onderaan
-#todo sexual_frequencies and other parameters in readme
-
 class NetworkModel():
     """
     Model to simulate HIV spread in a sexual network.
@@ -353,5 +347,6 @@ if __name__ == '__main__':
         model.step()
     print('Model states after 520 weeks (10 years)')
     print(model.count_states())
+
 
 
