@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 # Find files
-csv_files = glob.glob("data/**/*.csv", recursive=True)
+csv_files = glob.glob("data/sim_results/**/*.csv", recursive=True)
 all_results = []
 
 class_amounts = {'targeted_m_homo': 30, 'targeted_m_hetero': 431, 'targeted_m_bi': 21, 
@@ -112,3 +112,4 @@ group_3 = ['targeted_m_homo', 'targeted_m_bi',
            'targeted_f_homo', 'targeted_f_bi',
            'targeted_homosexual', 'targeted_bisexual']
 plot_group_with_bounds(group_3, "PrEP Effectiveness: bisexual vs. homosexual", "final_susc_small.png")
+
