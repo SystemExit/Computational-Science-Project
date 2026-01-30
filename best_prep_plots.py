@@ -1,5 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+
+#make sure 'plots' directory exists to safe plots in
+os.makedirs('plots', exist_ok=True)
 
 df_st = pd.read_csv("data/results_standard_mode/standard_weeks520_nodes1000_netseed67_iters50_RAW__20260128_101939.csv")
 df_mho = pd.read_csv("data/sim_results/targeted_m_homo/targeted_m_homo_prep100_weeks520_nodes1000_netseed67_iters50_RAW__20260127_215617.csv")
@@ -70,4 +74,5 @@ plt.savefig(filename, dpi=300, bbox_inches='tight')
 print(f"Opgeslagen: {filename}")
 plt.show()
 plt.show()
+
 
