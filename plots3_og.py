@@ -4,6 +4,9 @@ import glob
 import os
 import numpy as np
 
+# make sure 'plots' directory exists to safe plots in
+os.makedirs('plots', exist_ok=True)
+
 # Find files
 csv_files = glob.glob("data/sim_results/**/*.csv", recursive=True)
 all_results = []
@@ -86,19 +89,20 @@ def plot_group_with_bounds(modes_to_plot, title, filename, legend_outside=False)
     plt.legend(loc='upper left', fontsize=12, frameon=True, shadow=True)
     plt.tight_layout()
     plt.savefig(filename, dpi=300, bbox_inches='tight')
-    print(f"Opgeslagen: {filename}")
+    print(f"Saved: {filename}")
     plt.show()
 
 # Plot 1: Gender
 group_1 = ['random', 'targeted_male', 'targeted_female']
-plot_group_with_bounds(group_1, "PrEP Effectiveness: Gender vs. Baseline Distribution", "final_susc_gender.png")
+plot_group_with_bounds(group_1, "PrEP Effectiveness: Gender vs. Baseline Distribution", "plots/final_susc_gender.png")
 
 # Plot 2: Sexual Orientation
 group_2 = ['targeted_heterosexual', 'targeted_homosexual', 'targeted_bisexual']
-plot_group_with_bounds(group_2, "PrEP Effectiveness by Sexual Orientation", "final_susc_orientation.png")
+plot_group_with_bounds(group_2, "PrEP Effectiveness by Sexual Orientation", "plots/final_susc_orientation.png")
 
 # Plot 3: Six supgroups
 group_3 = ['targeted_m_homo', 'targeted_m_hetero', 'targeted_m_bi',
            'targeted_f_homo', 'targeted_f_hetero', 'targeted_f_bi']
-plot_group_with_bounds(group_3, "PrEP Effectiveness: Detailed Sub-group Analysis", "final_susc_six_groups.png")
+plot_group_with_bounds(group_3, "PrEP Effectiveness: Detailed Sub-group Analysis", "plots/final_susc_six_groups.png")
+
 
