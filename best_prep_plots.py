@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df_st = pd.read_csv("data/standard/standard_prep10_weeks520_nodes1000_netseed67_iters50_RAW__20260128_101939.csv")
+df_st = pd.read_csv("data/results_standard_mode/standard_weeks520_nodes1000_netseed67_iters50_RAW__20260128_101939.csv")
 df_mho = pd.read_csv("data/sim_results/targeted_m_homo/targeted_m_homo_prep100_weeks520_nodes1000_netseed67_iters50_RAW__20260127_215617.csv")
 s_st = df_st[[c for c in df_st.columns if 'susceptible' in c]]
 s_mho = df_mho[[c for c in df_mho.columns if 'susceptible' in c]]
@@ -22,3 +22,4 @@ plt.legend()
 
 
 plt.show()
+
