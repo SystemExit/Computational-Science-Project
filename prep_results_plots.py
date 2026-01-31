@@ -115,22 +115,23 @@ plot_group_with_bounds(group_3, title="PrEP Effectiveness: Detailed Sub-group An
 
 
 # Same plots with different x-axis value, grouped by scale of x-axis
-# Plot 1:
+# Large scale:
 group_4 = ['random', 'targeted_heterosexual']
 plot_group_with_bounds(group_4, title="PrEP Effectiveness: Random vs. Heterosexual", x_name='PrEP Coverage (Amount of people)',
                        x_value='people', filename="plots/prep_effect_largest_scale.png")
 
-# Plot 2: 
+# Medium scale: 
 group_5 = ['targeted_male', 'targeted_female', 'targeted_m_hetero', 'targeted_f_hetero']
 plot_group_with_bounds(group_5, title="PrEP Effectiveness: (heterosexual) male vs. female", x_name='PrEP Coverage (Amount of people)',
                        x_value='people', filename="plots/prep_effect_medium_scale.png")
 
-# Plot 3:
+# Small scale:
 group_6 = ['targeted_m_homo', 'targeted_m_bi',
            'targeted_f_homo', 'targeted_f_bi',
            'targeted_homosexual', 'targeted_bisexual']
 plot_group_with_bounds(group_6, title="PrEP Effectiveness: bisexual vs. homosexual", x_name='PrEP Coverage (Amount of people)',
                        x_value='people', filename="plots/prep_effect_small_scale.png")
+
 
 
 
