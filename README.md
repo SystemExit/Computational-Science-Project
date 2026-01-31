@@ -49,6 +49,95 @@ Upon running this file, a GUI appears where the user can change networkmodel par
 In the GUI, both the changing network (network view) and a few plots (stats view) can be seen to inspect the results of the simulation.
 Note: for the GUI to work optimally, the user is urged to use full-screen mode.
 
+## How to use the GUI
+
+The graphical user interface (GUI) allows you to configure, run, and analyze simulations of HIV spread within a networked population. Below is a description of all available controls and how to use them.
+
+### Variables
+
+- **Number of Nodes**  
+  Sets the total population size in the simulated network. Larger values increase computation time.
+
+- **Delay**  
+  Controls the time delay between each visual update in the simulation animation.
+
+- **Initial Outbreak Proportion**  
+  Defines the percentage of the population that is HIV-positive at time t = 0.
+
+- **Model Seed**  
+  Controls randomness in virus transmission, state transitions, and other stochastic processes.
+
+- **Use Model Seed (Checkbox)**  
+  - **Checked**: The simulation uses the fixed Model Seed, producing fully reproducible results.  
+  - **Unchecked**: All interactions are randomized each time the simulation runs.
+
+- **Network Seed**  
+  Generates a consistent network structure. Using the same seed will recreate the same network.
+
+- **Max Timesteps**  
+  Sets the total duration of the simulation in weeks.
+
+- **Iterations**  
+  Determines how many independent simulation runs are performed. Results are averaged across iterations for statistical robustness.
+
+- **Steps Per Update**  
+  Specifies how many internal simulation weeks pass before the GUI refreshes the visuals.
+
+- **PrEP Amount**  
+  Sets the proportion of the population receiving preventative medication (PrEP).
+
+- **Modes**  
+  Defines the PrEP targeting strategy (i.e., which subgroup in the population receives PrEP).
+
+### Buttons
+
+- **Network View**  
+  Switches to a node-link diagram that visualizes individuals and their current health states in real time.
+
+- **Stats View**  
+  Displays line charts showing population trends (e.g., susceptible, infected) over the course of the simulation.
+
+- **Default Settings**  
+  Resets all inputs to their original default values.
+
+- **Apply Settings**  
+  Rebuilds the simulation and network layout using the current GUI inputs. This must be pressed after changing any parameters.
+
+- **Export CSV**  
+  Saves raw simulation data for all iterations to a folder named `sim_results`.
+
+- **Start**  
+  Begins the simulation animation.
+
+- **Pause**  
+  Temporarily stops the simulation at the current timestep.
+
+- **Step**  
+  Advances the simulation forward by exactly one week.
+
+- **Batch CSV**  
+  Automatically runs multiple simulations across different PrEP levels and modes.  
+  Users can configure these values in the `batch_export()` function.  
+  All generated results are saved in the `sim_results` folder.
+
+### Single CSV Export Typical Workflow
+
+1. Run visuals.py
+2. Adjust simulation parameters in the **Variables** section.
+3. Click **Apply Settings** to rebuild the model.
+4. Wait for all models to be created (more iterations > longer waiting time).
+5. Press **Start** to run the simulation.
+6. Switch between **Network View** and **Stats View** to explore results.
+7. Click **Export CSV** to save data for further analysis.
+8. Your data can be found in the "sim_results" folder.
+
+### Batch CSV Export Typical Workflow
+
+1. Set the desired modes, prep values, timesteps etc. in the **batch_export()** function.
+2. Run visuals.py.
+3. Click **"Batch CSV"**.
+4. Wait for all models to be created (more iterations > longer waiting time).
+5. Your data can be found in the "sim_results" folder.
 
 ## Parameters of the HIV model based on literature: description, reference.  
 `acute_multiplier`: how much more likely it is for infection to take place when the infected node is in the acute phase (Hollingsworth et al., 2008)  
