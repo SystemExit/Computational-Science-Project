@@ -1,3 +1,8 @@
+## License
+This project is licensed under the MIT License.
+The code is released under the MIT License.  
+Datasets are subject to their original licenses and terms.
+
 ## Before running the code:
 All scripts must be executed from the **project root directory** (i.e. the directory containing `data/`, `requirements.txt`, and the Python files).
 Required Python packages can be installed via:
