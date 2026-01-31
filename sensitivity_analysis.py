@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 import os
 
-# Create the folder used to save plots (does nothing if it already exists)
+# # make sure 'plots' directory exists to save plots in
 os.makedirs('plots', exist_ok=True)
 
 def max_absolute_difference(lst):
