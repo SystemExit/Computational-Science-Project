@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 import os
 
-# make sure 'plots' directory exists to save plot in
+# Create the folder used to save plots (does nothing if it already exists)
 os.makedirs('plots', exist_ok=True)
 
 def max_absolute_difference(lst):
@@ -56,6 +56,7 @@ def f(params):
     model.infection_multipliers = {'acute': 26, 'chronic': 1, 'aids': 7}
     model.acute_to_chronic = 12
     model.infection_to_aids = 52*8.5
+    
     # Parameters that may be altered in the sensitivity analysis
     model.initial_outbreak_proportion = params["initial_outbreak_proportion"]
     model.virus_spread_msm = params["virus_spread_msm"]
@@ -94,13 +95,12 @@ def calculate_max_deviation(parameters, pertubation_size):
     """
     max_dev_dict = dict()
     default_parameters = copy.deepcopy(parameters)
+    
     # Create a range from 0 (including) to 1 (including) of step size pertubation_size
     proportional_range = make_range_0_upper_bound(perturbation_size=pertubation_size, upper_bound=1)
-# # Only perform one iteration to count how long it takes ###############################################################################################################################
-#     counter = 0 ###############################################################################################################################
+    
     for param_name, default_value in parameters.items():
-        # if counter > 0: ###############################################################################################################################
-        #     break
+
         if isinstance(default_value, dict):
 
             if param_name == "sexual_frequencies": # the range of sexual frequency is assumed to be [0,70]
@@ -119,7 +119,6 @@ def calculate_max_deviation(parameters, pertubation_size):
                     max_diff = max_absolute_difference(f_values)
                     max_dev_dict[param_name][inner_param_name] = max_diff
                     
-
             else: # the range of the inner_default_values is [0,1]
                 max_dev_dict[param_name] = dict()
                 for inner_param_name, inner_default_value in default_value.items():
@@ -133,8 +132,6 @@ def calculate_max_deviation(parameters, pertubation_size):
                     max_diff = max_absolute_difference(f_values)
                     max_dev_dict[param_name][inner_param_name] = max_diff
                     
-
-
         else: # default_value is a float
 
             f_values = []
@@ -145,11 +142,7 @@ def calculate_max_deviation(parameters, pertubation_size):
 
             max_diff = max_absolute_difference(f_values) 
             max_dev_dict[param_name] = max_diff
-        # counter += 1 ############################################################################################################################### Runtime: 43s for one variable
     return max_dev_dict
-    
-# By default seed and network seed are set to None and number of nodes is set to 1000,
-# rng set to random.random(None) and states_per_time set to [].
 
 parameters = {
     "initial_outbreak_proportion" : 0.01,
@@ -186,9 +179,8 @@ parameters = {
 }
     
 
-# # Result of sensitivity analysis which pertubated one parameter by 10% whilst keeping the other parameters at their default values:
-# # the maximum difference in susceptible people for pertubating it by 10% is given by the following dictionary
-# >>> analysis_results = (calculate_max_deviation(parameters, pertubation_size=0.1)
+# Result of sensitivity analysis which pertubated one parameter by 10% whilst keeping the other parameters at their default values:
+
 analysis_results = {'initial_outbreak_proportion': 16,
  'virus_spread_msm': 25, 
 'virus_spread_msf': 57,
@@ -257,7 +249,7 @@ legend_elements = [
     Patch(facecolor="gray", label="Might be controlled by government policy")
 ]
 plt.legend(handles=legend_elements)
-plt.xticks(rotation=30, ha="right") # Rotate the labels so you don't break your neck reading them
+plt.xticks(rotation=30, ha="right") 
 plt.ylabel("Maximum deviation in susceptible population")
 plt.title("Sensitivity Analysis (10% Parameter Perturbation)")
 plt.tight_layout()
