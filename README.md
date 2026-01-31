@@ -86,7 +86,7 @@ The graphical user interface (GUI) allows you to configure, run, and analyze sim
 - **PrEP Amount**  
   Sets the proportion of the population receiving preventative medication (PrEP).
 
-- **Modes**  
+- **Mode**  
   Defines the PrEP targeting strategy (i.e., which subgroup in the population receives PrEP).
 
 ### Buttons
