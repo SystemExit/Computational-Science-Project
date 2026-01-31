@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import os
 
-# make sure 'plots' directory exists to safe plots in
+# make sure 'plots' directory exists to save plots in
 os.makedirs('plots', exist_ok=True)
 
 # Create pie plot of class distribution in the network made with network_seed = 67
@@ -25,5 +25,6 @@ filename = 'plots/class_distribution.png'
 plt.savefig(filename, dpi=300, bbox_inches='tight')
 print(f"Saved: {filename}")
 plt.show()
+
 
 
