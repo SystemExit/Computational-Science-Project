@@ -1,7 +1,9 @@
-The dataset is too large for GitHub
+The dataset used to create the network is too large for GitHub
+Follow these steps to get the correct dataset
 
 **Download it from:**
-- https://www.icpsr.umich.edu/web/NAHDAP/studies/22140/datadocumentation#
+https://www.icpsr.umich.edu/web/NAHDAP/studies/22140/datadocumentation#
+
 - Click on the download button from 'DS2 Pairs of Persons -- Egodyads', and select the 'Delimited' option.
 - You will need to enter an email to be able to download it (if a 'Profile Update' pop-up is shown, you can ignore it, the download is already happening).
 - After downloading the zip-file, you can find the egodyads file under the name "22140-0002-Data.tsv" as follows": 
