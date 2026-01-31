@@ -149,6 +149,25 @@ The graphical user interface (GUI) allows you to configure, run, and analyze sim
   they may manually enter it in the corresponding entry field and the model will still run.  
   However, results outside these bounds may be unreliable.
 
+## CSV Filename Format
+
+Exported CSV files use descriptive filenames so key simulation settings can be read directly from the name.
+
+Format:
+<mode>_prep<PREP>_weeks<WEEKS>_nodes<NODES>_netseed<NETSEED>_iters<ITERS>_RAW__<TIMESTAMP>.csv
+
+Example:
+random_prep50_weeks520_nodes1000_netseed67_iters50_RAW__20240118_143522.csv
+
+This tells you:
+- targeting mode used (`random`)
+- PrEP level in percent (`prep50` = 50%)
+- number of simulated weeks (`weeks520`)
+- population size (`nodes1000`)
+- network seed (`netseed67`)
+- number of runs (`iters50`)
+- export time (`YYYYMMDD_HHMMSS`)
+
 
 ## Parameters of the HIV model based on literature: description, reference.  
 `acute_multiplier`: how much more likely it is for infection to take place when the infected node is in the acute phase (Hollingsworth et al., 2008)  
