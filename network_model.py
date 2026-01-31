@@ -111,7 +111,7 @@ class NetworkModel():
     def intervention_intake(self, node:int, state: str, timer: int) -> None:
         klasse = self.graph.nodes[node]["klasse"]
         if state == "susceptible":
-            # take prep if at least two neighbors take prep (realistically, only male homo/bisexuals do this)
+            # take prep if at least two neighbors take prep (realistically, only male homosexuals / male bisexuals do this)
             count = sum([1 for n in self.graph.neighbors(node) if self.graph.nodes[n]["intervention"] == "prep"])
             if count >= 2 and klasse == 'male homosexual':
                 if self.rng.random() < 0.1:
@@ -347,6 +347,7 @@ if __name__ == '__main__':
         model.step()
     print('Model states after 520 weeks (10 years)')
     print(model.count_states())
+
 
 
 
