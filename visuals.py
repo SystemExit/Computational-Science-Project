@@ -557,18 +557,17 @@ def batch_export():
     # Note down which target modes it should include
     modes = [
         "standard"
-
-        # "targeted_m_homo",
-        # "targeted_m_hetero",
-        # "targeted_m_bi",
-        # "targeted_f_homo",
-        # "targeted_f_hetero",
-        # "targeted_f_bi",
-        # "targeted_homosexual",
-        # "targeted_heterosexual",
-        # "targeted_bisexual",
-        # "targeted_male",
-        # "targeted_female"
+        "targeted_m_homo",
+        "targeted_m_hetero",
+        "targeted_m_bi",
+        "targeted_f_homo",
+        "targeted_f_hetero",
+        "targeted_f_bi",
+        "targeted_homosexual",
+        "targeted_heterosexual",
+        "targeted_bisexual",
+        "targeted_male",
+        "targeted_female"
     ]
 
     # Fixed settings for every run so data can easily be compared
@@ -901,6 +900,7 @@ redraw()
 
 
 window.mainloop()
+
 
 
 
