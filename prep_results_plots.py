@@ -4,7 +4,7 @@ import glob
 import os
 import numpy as np
 
-# make sure 'plots' directory exists to safe plots in
+# make sure 'plots' directory exists to save plots in
 os.makedirs('plots', exist_ok=True)
 
 # Find files
@@ -131,6 +131,7 @@ group_6 = ['targeted_m_homo', 'targeted_m_bi',
            'targeted_homosexual', 'targeted_bisexual']
 plot_group_with_bounds(group_6, title="PrEP Effectiveness: bisexual vs. homosexual", x_name='PrEP Coverage (Amount of people)',
                        x_value='people', filename="plots/prep_effect_small_scale.png")
+
 
 
 
