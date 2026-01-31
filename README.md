@@ -1,24 +1,62 @@
 **Files and description**
-Link to the network data can be found in the respective file.
+Link to the network data used for the model can be found in README in the data directory.
 
 **Survival_rate_with_AIDS_after_t_years.R**  
-Survival rate x years after AIDS diagnosis, was reported by (Poorolajal et al., 2016) for x = 2,4,6 for AIDS patients that did not receive ART. To calculate the survival rate for any x >= 0,
-the survival rate as function of time was fitted assuming it follows exponential decay.
+Survival rate x years after AIDS diagnosis, was reported by (Poorolajal et al., 2016) for x = 2,4,6 for AIDS patients that did not receive ART. To calculate the survival rate for any x >= 0, the survival rate as function of time was fitted assuming it follows exponential decay.
 
-**plots.py**  
-Generating the data for the plot for one mode (e.g. "targeted_m_homo") takes ~35 min. on a medium-high 2016 PC build, totalling to a runtime of roughly 7 hours to generate all plots. 
+**prep_results_plots.py and best_prep_plots.py**  
+Generating the data for the plot for one mode (e.g. "targeted_m_homo") takes ~35 min. on a medium-high 2016 PC build, totalling to a runtime of roughly 7 hours to generate all plots.
+All data used for generating plots can also be found under 'data/sim_results' and 'data/results_standard_mode', ready to use to generate plots. All plots seen in the poster's/report's 'results' can be generating by running these two files.
+
+**create_sexual_network.py**
+If this file is run directly in the terminal, some tests will be performed.
+Otherwise, this file is called upon in the network_model and used to create the network which the model relies upon. 
+For this code to work correctly, data should be downloaded as instructed in the 'data/README.md'.
+
+**network_model.py**
+This file contains the model which is the main part of the project. This file can be run from the terminal with a few different options:
+If "$ python network_model.py" is entered, the model will run with all its standard setting; a model wil be made and will be simulated for a timespan of 10 years.
+There is also the option to enter a 'mode' for the model "$ python network_model.py mode", regarding the usage of PrEP. This mode shhould be one of the following:
+"standard", "random", "targeted_m_homo", "targeted_m_hetero", "targeted_m_bi", 
+"targeted_f_homo", "targeted_f_hetero", "targeted_f_bi", "targeted_homosexual", 
+"targeted_heterosexual", "targeted_bisexual", "targeted_male", "targeted_female"
+
+"standard" is the standard mode, where none of the nodes will take PrEP. All the other modes distribute the initial PrEP amount over the chosen target group. 
+This model can also be accessed via the GUI made in "visuals.py". If instead the parameters of this model are changed via the terminal, use the correct variable types as stated in the type hints in the model.
+
+**visuals.py**
+Upon running this file, a GUI appears where the user can change networkmodel parameters as one pleases, and run the model with the selected parameters. ('apply settings' -> 'start')
+In the GUI, both the changing network (network view) and a few plots (stats view) can be seen to inspect the results of the simulation.
+Note: for the GUI to work optimally, the user is urged to use full-screen mode.
 
 
-
-
-**Parameters of the HIV model, description, reference.***  
-`condom_usage`, proportion of sexual interactions that involve the use of condoms out of all interactions between two gender types, Reece et al. 2010.  
-`condom_efficacy`, proportion of sexual interactions that do not result in the transmission of HIV out of all interactions that involve the use of condoms between two genders, Smith et al. 1999 and Weller et al. 1996.  
+**Parameters of the HIV model that are based on literature: description, reference.**  
+`acute_multiplier`: how much more likely it is for infection to take place when the infected node is in the acute phase (Hollingsworth et al., 2008)
+`acute_to_chronic`: amount of weeks from initial infection until the chronic stage. (Hollingsworth et al., 2008)
+`aids_multiplier`: how much more likely it is for infection to take place when the infected node is in the aids phase (Hollingsworth et al., 2008)
+`art_multiplier`: proportion of infection probability left over with infected person taking ART (Cohen et al. 2011)
+`check_frequencies`: weekly probability for a node in each class to get an STI check (Stichting HIV Monitoring, 2023; CDC guidelines)
+`chronic_to_aids`: amount of weeks from initial infection to aids stage (without medicine). (CASCADE, 2000)
+`condom_usage`: proportion of sexual interactions that involve the use of condoms out of all interactions between two gender types (Reece et al. 2010.)
+`condom_efficacy`: proportion of sexual interactions that result in the transmission of HIV out of all interactions that involve the use of condoms between two genders (Smith et al., 1999; Weller et al., 1996). (if condom is 90% effective, condom_efficacy = 0.1)
+`prep_multiplier`: proportion of infection probability left over with susceptible person taking PrEP(McCormack et al. 2016)
+`sexual_frequencies`: amount of sexual acts per week, per sexual class (used in 'create_sexual_network.py'). (Mercer et al., 2013)
+`virus_spread_...`: base probability of a susceptible node contracting HIV from an infected node when a sexual interaction occurs, depending on genders of both nodes. (Patel et al., 2014)
 
 *If multiple empirical parameter values were reported, e.g. condom usage reported by heterosexual men and condom usage reported by heterosexual women, the mean of the reported values was assigned as parameter value.
 
+
 **References**   
-Reece, M., Herbenick, D., Schick, V., Sanders, S. A., Dodge, B., & Fortenberry, J. D. (2010). Condom use rates in a national probability sample of males and females ages 14 to 94 in the United States. The journal of sexual medicine, 7, 266-276.  
-Poorolajal, J., Hooshmand, E., Mahjub, H., Esmailnasab, N., & Jenabi, E. (2016). Survival rate of AIDS disease and mortality in HIV-infected patients: a meta-analysis. Public health, 139, 3-12.
-Smith, D. K., Herbst, J. H., Zhang, X., & Rose, C. E. (2015). Condom effectiveness for HIV prevention by consistency of use among men who have sex with men in the United States. Journal of acquired immune deficiency syndromes (1999), 68(3), 337–344.  
-Weller, S. C., Davis‐Beaty, K., & Cochrane HIV/AIDS Group. (1996). Condom effectiveness in reducing heterosexual HIV transmission. Cochrane database of systematic reviews, 2012(3).  
+- Boily, M. C., Baggaley, R. F., Wang, L., Masse, B., White, R. G., Hayes, R. J., & Alary, M. (2009). Heterosexual risk of HIV-1 infection per sexual act: systematic review and meta-      analysis of observational studies. The Lancet. Infectious diseases, 9(2), 118–129. https://doi.org/10.1016/S1473-3099(09)70021-0
+- Cohen, M. S., Chen, Y. Q., McCauley, M., Gamble, T., Hosseinipour, M. C., Kumarasamy, N., Hakim, J. G., Kumwenda, J., Grinsztejn, B., Pilotto, J. H. S., Godbole, S. V., Mehendale, S., Chariyalertsak, S., Santos, B. R., Mayer, K. H., Hoffman, I. F., Eshleman, S. H., Piwowar-Manning, E., Wang, L., Makhema, J., … Fleming, T. R. (2011). Prevention of HIV-1 infection with early antiretroviral therapy. The New England Journal of Medicine, 365(6), 493–505. https://doi.org/10.1056/NEJMoa1105243
+- Hollingsworth, T. D., Anderson, R. M., & Fraser, C. (2008). HIV-1 transmission, by stage of infection. The Journal of infectious diseases, 198(5), 687–693. https://doi.org/10.1086/590501
+- McCormack, S., Dunn, D. T., Desai, M., Dolling, D. I., Gafos, M., Gilson, R., Sullivan, A. K., Clarke, A., Reeves, I., Schembri, G., Mackie, N., Bowman, C., Lacey, C. J., Apea, V., Brady, M., Fox, J., Taylor, S., Antonucci, S., Khoo, S. H., Rooney, J., … Gill, O. N. (2016). Pre-exposure prophylaxis to prevent the acquisition of HIV-1 infection (PROUD): effectiveness results from the pilot phase of a pragmatic open-label randomised trial. Lancet (London, England), 387(10013), 53–60. https://doi.org/10.1016/S0140-6736(15)00056-2
+- Mercer, C. H., Tanton, C., Prah, P., Erens, B., Sonnenberg, P., Clifton, S., Field, N., Macdowall, W., Lewis, R., Datta, J., Copas, A. J., Phelps, A., Wellings, K., & Johnson, A. M. (2013). Changes in sexual attitudes and lifestyles in Britain through the life course and over time: Findings from the National Surveys of Sexual Attitudes and Lifestyles (Natsal-3). The Lancet, 382(9907), 1781–1794. https://doi.org/10.1016/S0140-6736(13)62035-8
+- Morgan, D., Mahe, C., Mayanja, B., Okongo, J. M., Lubega, R., & Whitworth, J. A. (2002). HIV-1 infection in rural Africa: is there a difference in median time to AIDS and survival compared with that in industrialized countries?. AIDS (London, England), 16(4), 597–603. https://doi.org/10.1097/00002030-200203080-00011
+- Patel, P., Borkowf, C. B., Brooks, J. T., Lasry, A., Lansky, A., & Mermin, J. (2014). Estimating per-act HIV transmission risk: a systematic review. AIDS (London, England), 28(10), 1509–1519. https://doi.org/10.1097/QAD.0000000000000298
+- Poorolajal, J., Hooshmand, E., Mahjub, H., Esmailnasab, N., & Jenabi, E. (2016). Survival rate of AIDS disease and mortality in HIV-infected patients: a meta-analysis. Public health, 139, 3-12.
+- Raiteri, R., Fora, R., & Sinicco, A. (1994). No HIV-1 transmission through lesbian sex. Lancet (London, England), 344(8917), 270. https://doi.org/10.1016/s0140-6736(94)93037-6
+- Reece, M., Herbenick, D., Schick, V., Sanders, S. A., Dodge, B., & Fortenberry, J. D. (2010). Condom use rates in a national probability sample of males and females ages 14 to 94 in the United States. The journal of sexual medicine, 7, 266-276.
+- Smith, D. K., Herbst, J. H., Zhang, X., & Rose, C. E. (2015). Condom effectiveness for HIV prevention by consistency of use among men who have sex with men in the United States. Journal of acquired immune deficiency syndromes (1999), 68(3), 337–344.  
+- Time from HIV-1 seroconversion to AIDS and death before widespread use of highly-active antiretroviral therapy: a collaborative re-analysis. Collaborative Group on AIDS Incubation and HIV Survival including the CASCADE EU Concerted Action. Concerted Action on SeroConversion to AIDS and Death in Europe. (2000). Lancet (London, England), 355(9210), 1131–1137.
+- Weller, S. C., Davis‐Beaty, K., & Cochrane HIV/AIDS Group. (1996). Condom effectiveness in reducing heterosexual HIV transmission. Cochrane database of systematic reviews, 2012(3).
