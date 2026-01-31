@@ -887,7 +887,6 @@ mode_menu.grid(row=21, column=1, padx=15, pady=5, sticky="w")
 # INITIAL MODEL CREATION
 #===========================================================================================================================================
 
-iter_stats = None 
 current_view = "network"
 running = False
 t = 0
@@ -902,6 +901,7 @@ redraw()
 
 
 window.mainloop()
+
 
 
 
