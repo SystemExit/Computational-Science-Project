@@ -99,7 +99,7 @@ def plot_group_with_bounds(modes_to_plot, title, x_axis, filename, legend_outsid
 
 # Plot 1: Gender
 group_1 = ['random', 'targeted_male', 'targeted_female']
-plot_group_with_bounds(group_1, "PrEP Effectiveness: Gender vs. Baseline Distribution", "plots/final_susc_gender.png", "prep")
+plot_group_with_bounds(group_1, "PrEP Effectiveness: Gender vs. Baseline Distribution", "prep", "plots/final_susc_gender.png")
 
 # Plot 2: Sexual Orientation
 group_2 = ['targeted_heterosexual', 'targeted_homosexual', 'targeted_bisexual']
@@ -125,6 +125,7 @@ group_6 = ['targeted_m_homo', 'targeted_m_bi',
            'targeted_f_homo', 'targeted_f_bi',
            'targeted_homosexual', 'targeted_bisexual']
 plot_group_with_bounds(group_6, "PrEP Effectiveness: bisexual vs. homosexual", "people", "plots/prep_effect_small_scale.png")
+
 
 
 
