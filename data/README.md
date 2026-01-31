@@ -1,4 +1,4 @@
-The dataset used to create the network is too large for GitHub
+The dataset used to create the network is too large for GitHub  
 Follow these steps to get the correct dataset
 
 **Download it from:**
