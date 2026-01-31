@@ -149,6 +149,11 @@ The graphical user interface (GUI) allows you to configure, run, and analyze sim
   they may manually enter it in the corresponding entry field and the model will still run.  
   However, results outside these bounds may be unreliable.
 
+- If you want to test the batch export function, it is recommended to use much smaller values to reduce runtime.  
+For example, set `max_t = 10`, `iterations = 2`, and `num_nodes = 100`, and use only a single target mode.  
+This allows you to quickly verify that the batch export works correctly before running large simulations.
+
+
 ## CSV Filename Format
 
 Exported CSV files use descriptive filenames so key simulation settings can be read directly from the name.
