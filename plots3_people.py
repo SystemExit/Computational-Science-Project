@@ -60,7 +60,7 @@ for file in csv_files:
 summary_df = pd.DataFrame(all_results).sort_values(by='prep')
 
 # Function to plot groups
-def plot_group_with_bounds(modes_to_plot, title, filename, legend_outside=False):
+def plot_group_with_bounds(modes_to_plot, title, x_axis, filename, legend_outside=False):
     figsize = (14, 7) if legend_outside else (12, 7)
     plt.figure(figsize=figsize)
 
@@ -76,9 +76,9 @@ def plot_group_with_bounds(modes_to_plot, title, filename, legend_outside=False)
             label = mode.replace('targeted_', '').replace('_', ' ').title()
             if label == "Random": label = "Random"
 
-            plt.fill_between(subset['people'], subset['q1'], subset['q3'],
+            plt.fill_between(subset[x_axis], subset['q1'], subset['q3'],
                              color=color, alpha=0.15)
-            plt.plot(subset['people'], subset['median'],
+            plt.plot(subset[x_axis], subset['median'],
                      marker='o', markersize=7, linewidth=3,
                      label=label, color=color)
 
@@ -97,19 +97,34 @@ def plot_group_with_bounds(modes_to_plot, title, filename, legend_outside=False)
     plt.show()
 
 
-# Plots grouped by scale of x-axis
+# Plot 1: Gender
+group_1 = ['random', 'targeted_male', 'targeted_female']
+plot_group_with_bounds(group_1, "PrEP Effectiveness: Gender vs. Baseline Distribution", "plots/final_susc_gender.png", "prep")
+
+# Plot 2: Sexual Orientation
+group_2 = ['targeted_heterosexual', 'targeted_homosexual', 'targeted_bisexual']
+plot_group_with_bounds(group_2, "PrEP Effectiveness by Sexual Orientation", "prep", "plots/final_susc_orientation.png")
+
+# Plot 3: Six supgroups
+group_3 = ['targeted_m_homo', 'targeted_m_hetero', 'targeted_m_bi',
+           'targeted_f_homo', 'targeted_f_hetero', 'targeted_f_bi']
+plot_group_with_bounds(group_3, "PrEP Effectiveness: Detailed Sub-group Analysis", "prep", "plots/final_susc_six_groups.png")
+
+
+# Same plots with different x-axis value, grouped by scale of x-axis
 # Plot 1:
-group_1 = ['random', 'targeted_heterosexual']
-plot_group_with_bounds(group_1, "PrEP Effectiveness: Random vs. Heterosexual", "plots/prep_effect_largest_scale.png")
+group_4 = ['random', 'targeted_heterosexual']
+plot_group_with_bounds(group_4, "PrEP Effectiveness: Random vs. Heterosexual", "people", "plots/prep_effect_largest_scale.png")
 
 # Plot 2: 
-group_2 = ['targeted_male', 'targeted_female', 'targeted_m_hetero', 'targeted_f_hetero']
-plot_group_with_bounds(group_2, "PrEP Effectiveness: (heterosexual) male vs. female", "plots/prep_effect_medium_scale.png")
+group_5 = ['targeted_male', 'targeted_female', 'targeted_m_hetero', 'targeted_f_hetero']
+plot_group_with_bounds(group_5, "PrEP Effectiveness: (heterosexual) male vs. female", "people", "plots/prep_effect_medium_scale.png")
 
 # Plot 3:
-group_3 = ['targeted_m_homo', 'targeted_m_bi',
+group_6 = ['targeted_m_homo', 'targeted_m_bi',
            'targeted_f_homo', 'targeted_f_bi',
            'targeted_homosexual', 'targeted_bisexual']
-plot_group_with_bounds(group_3, "PrEP Effectiveness: bisexual vs. homosexual", "plots/prep_effect_small_scale.png")
+plot_group_with_bounds(group_6, "PrEP Effectiveness: bisexual vs. homosexual", "people", "plots/prep_effect_small_scale.png")
+
 
 
