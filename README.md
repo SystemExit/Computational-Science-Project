@@ -22,7 +22,7 @@ sudo apt install python3-tk
 Link to the network data used for the model can be found in README in the data directory.
 
 `Survival_rate_with_AIDS_after_t_years.R`   
-Survival rate x years after AIDS diagnosis, was reported by (Poorolajal et al., 2016) for x = 2,4,6 for AIDS patients that did not receive ART. To calculate the survival rate for any x >= 0, the survival rate as function of time was fitted assuming it follows exponential decay.
+Survival rate x years after AIDS diagnosis, was reported by (Poorolajal et al., 2016) for x = 2,4,6 for AIDS patients that did not receive ART. To calculate the survival rate for any x >= 0, the survival rate as function of time was fitted assuming it follows exponential decay. It is not necessary to run this R file, the result of this file is a calculation used in the network model.
 
 `prep_results_plots.py`, `best_prep_plots.py` and `pie.py`    
 Generating the data for the plot for one mode (e.g. "targeted_m_homo") takes ~35 min. on a medium-high 2016 PC build, totalling to a runtime of roughly 7 hours to generate all plots.
