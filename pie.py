@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 
+# Create pie plot of class distribution in the network made with network_seed = 67
 labels = ['m_homo', 'm_hetero', 'm_bi', 'f_homo', 'f_hetero', 'f_bi']
-values = [30, 431, 21, 10, 468, 40]
+values = [30, 431, 21, 10, 468, 40] 
 
 colors = [
     '#145f82',  # m_homo
@@ -18,3 +19,4 @@ plt.title('Population Distribution')
 
 plt.legend(labels, loc='lower center', ncol=6, bbox_to_anchor=(0.5, -0.15))
 plt.show()
+
