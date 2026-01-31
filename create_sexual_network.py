@@ -5,7 +5,7 @@ import csv
 
 def sexual_frequency(G:nx.Graph) -> nx.Graph:
     """
-    Add probabilities of having sex per week as weights to all edged of G.
+    Add probability of having sex per week as weight to all edges of G.
     """
     #average amount of sex per week per class
     sexual_frequencies = { 
@@ -36,11 +36,11 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
     """returns a networkx graph that represents a sexual network of N nodes, where each node (female/male) has at least one edge (sexual relationship) with another node. 
     Each node is sorted into one of the six classes: male homosexual/male heterosexual/male bisexual/female homosexual/female heterosexual/female bisexual, and its 
     degree is determined by sampling from the degree distribution of the nodes of that class in the network formed by the egodyads dataset (Morris & Rothenberg, 2011).
-    All nodes in the networkx graph are labeled with the class ("klasse"), gender ("gender") and HIV status ("HIV_status") attribute. After creaing the simulated sexual network, a portion of 
+    All nodes in the networkx graph are labeled with the class ("klasse"), gender ("gender") and HIV status ("state") attribute. After creaing the simulated sexual network, a portion of 
     the population is infected with HIV, according to the parameter pr_infected_initial and the proportion of nodes that are infected in each class in Egodyads network. 
 
     :N:                         amount of nodes in the simulated sexual network
-    :pr_infected_initial:       proportion of nodes that are infected in the simulated sexual network
+    :pr_infected_initial:       proportion of nodes that are initially infected in the simulated sexual network
     :seed:                      initialisation of random number generator
     :pr_male_homosexual:        proportion of nodes that are male and have intercourse only with males
     :pr_male_heterosexual:      proportion of nodes that are male and have intercourse only with females
@@ -57,23 +57,16 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
     Only genders male and female, and sexual relationships between these genders have been considered for creating the network, due to limited data availability. 
     The proportion of males is assumed to be equal to the proportion of females.
     """
-
-    # Load in the egodyads dataset from Morris, M., & Rothenberg, R. (2011). HIV transmission network metastudy project: An archive of data from eight network studies, 
-    # 1988--2001. An egodyad is a relation (edge) reported by the respondent (ego) that is between the respondent and someone the respondent knows, as opposed to an
-    # altdyad which is defined as a relationship reported by the ego that is between two other people (alters) the respondent knows; see Wasserman, S. (1994). 
-    # Social network analysis: Methods and applications. page 42. The egodyads dataset is used for construction of a new sexual network instead of the altdyads dataset, 
-    # because it is more accurate; egos know for certain all their relationships with alters, whilst egos might not know all the relationships between their alters.
-
+    
     # # # 1. Determine the male/female degree and class (one of the six) of each node.
     edge_list = []
-    HIV_positive = list() # List of tuples: (node_1, node_2, sex_node_1, sex_node_2)
-    # where node_1 is in the sexual network who were tested for HIV and tested positive.   
+    HIV_positive = list() # List of tuples: (node_1, node_2, sex_node_1, sex_node_2) where node_1 is tested HIV-positive.   
     genders = dict() # Gender of each node
     
     with open(data_file_name, 'r') as csv_file:
         reader = csv.DictReader(csv_file, delimiter="\t")
         for row in reader:
-            tietype = row["TIETYPE"] # mode of connection of ego with alter 1: social, 2: drug,  3: sexual, 4: needle
+            tietype = row["TIETYPE"] # connection type between node and neighbour 1: social, 2: drug, 3: sexual, 4: needle
             ego_gender = row["SEX1"]
             alter_gender = row["SEX2"]
             gender_def = {
@@ -81,7 +74,7 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
                             "1": "female"
                           }
             infected = row["HIV1"]
-            # Select only data for which the mode of connection between ego and alter was sexual, and both their gender was identified
+            # Select only data for which the mode of connection between node and neighbour was sexual, and both their gender was identified
             if tietype == "3" and ego_gender in gender_def and alter_gender in gender_def: 
                 ego, alter = int(row["ID1"]), int(row["ID2"])
                 edge_list.append((ego,alter)) # add the edge between the ego and the alter
@@ -129,7 +122,7 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
                 degrees_per_class["female heterosexual"]["male degree"].append(male_alters)
     
     
-    # # # 2. Now we create a network of N nodes which first are divided into classes according to the input proportion parameters.
+    # # # 2. Now create a network of N nodes which are first divided into classes according to the input proportion parameters.
     random.seed(seed)
     proportion_per_class = [
                         pr_male_homosexual, pr_male_heterosexual, pr_male_bisexual, 
@@ -238,14 +231,13 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
     
     
     # Of the infected nodes we calculate how many belong to each class, so we can calculate the proportion of infected nodes that belong to each class.
-    # We determine the class of the node and add one to counter of the class it came from in pr_infected_per_class
+    # Determine the class of the node and add one to counter of the class it came from in pr_infected_per_class
     nodes_encountered = set()
     for node_1, _, gender_1, _ in HIV_positive:
         if node_1 in nodes_encountered:
             continue
         nodes_encountered.add(node_1)
-        sexuality_list = ["F", "F"] # letter at index 0 indicates if node_1 had sex with male (F: false, T: true),
-        # letter at index 1 if node_1 had sex with female (F: false, T: true)
+        sexuality_list = ["F", "F"] # index 0 indicates if node_1 had sex with male, index 1 if node_1 had sex with female (F: false, T: true)
         for ego, _, _, gender_alter in HIV_positive:
             if ego == node_1:
                 if gender_alter == "male":
@@ -272,9 +264,7 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
 
 
 
-    # Now we infect nodes according to the proportion of infected per class in the egodyads network
-    
-    # Variables concerning the simulated network
+    # Now infect nodes according to the proportion of infected per class in the egodyads network
     # number of nodes that ought to be infected
     total_infected = math.ceil(pr_infected_initial*N) 
     # number of nodes that ought to be infected per class (can't exceed the size of the class)
@@ -282,7 +272,7 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
     # number of nodes will actually infected per class (must sum up to total_infected, using the following procedure)
     infected_per_class = {klasse: int(total_infected_per_class[klasse]) for klasse in classes} 
    
-    # now we rectify the difference between representation specified in total_infected_per_class and assigned representation in infected_per_class, 
+    # now rectify the difference between representation specified in total_infected_per_class and assigned representation in infected_per_class, 
     # such that the most underrepresented classes gain more infected, and adding these infected nodes makes the amount infected 
     # equal the amount that ought to be infected
     useful_classes = ["male homosexual", "male heterosexual", "male bisexual", "female homosexual", "female heterosexual", "female bisexual"]
@@ -293,7 +283,7 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
         most_underrepresented = None
 
         for klasse in useful_classes:
-            if infected_per_class[klasse] == len(class_and_nodes[klasse]):
+            if infected_per_class[klasse] == len(class_and_nodes[klasse]): # infected per class can't exceed amount of nodes in the class
                 useful_classes.remove(klasse)
                 continue
             infected_specified = total_infected_per_class[klasse]
