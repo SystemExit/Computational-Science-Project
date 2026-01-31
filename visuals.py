@@ -556,7 +556,8 @@ def batch_export():
 
     # Note down which target modes it should include
     modes = [
-        "standard"
+        #"standard",
+        "random",
         "targeted_m_homo",
         "targeted_m_hetero",
         "targeted_m_bi",
@@ -900,6 +901,7 @@ redraw()
 
 
 window.mainloop()
+
 
 
 
