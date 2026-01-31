@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# make sure 'plots' directory exists to safe plots in
+# make sure 'plots' directory exists to save plots in
 os.makedirs('plots', exist_ok=True)
 
 # import data
@@ -75,6 +75,7 @@ plt.savefig(filename, dpi=300, bbox_inches='tight')
 print(f"Saved: {filename}")
 plt.show()
 plt.show()
+
 
 
 
