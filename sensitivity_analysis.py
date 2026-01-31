@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 import os
 
-# # make sure 'plots' directory exists to save plots in
+# Make sure 'plots' directory exists to save plots in
 os.makedirs('plots', exist_ok=True)
 
 def max_absolute_difference(lst):
@@ -25,8 +25,8 @@ def make_range_0_upper_bound(perturbation_size, upper_bound):
     """
     step = upper_bound * perturbation_size
     values = []
-
     x = 0.0
+    
     while x <= upper_bound:
         values.append(x)
         x += step
@@ -51,7 +51,7 @@ def f(params):
 
     model.seed = None
     model.num_nodes = 1000
-    model.mode = "standard" # # <-
+    model.mode = "standard"
     model.prep_amount = 0.3
     model.infection_multipliers = {'acute': 26, 'chronic': 1, 'aids': 7}
     model.acute_to_chronic = 12
@@ -100,26 +100,25 @@ def calculate_max_deviation(parameters, pertubation_size):
     proportional_range = make_range_0_upper_bound(perturbation_size=pertubation_size, upper_bound=1)
     
     for param_name, default_value in parameters.items():
-
         if isinstance(default_value, dict):
-
-            if param_name == "sexual_frequencies": # the range of sexual frequency is assumed to be [0,70]
+            if param_name == "sexual_frequencies": # The range of sexual frequency is assumed to be [0,70]
                 max_dev_dict[param_name] = dict()
+                
                 for inner_param_name, inner_default_value in default_value.items():
-                    # pertubate the inner_default value by pertubation_size*70
+                    # Pertubate the inner_default value by pertubation_size*70
                     var_range = make_range_0_upper_bound(perturbation_size=pertubation_size, upper_bound=70)
-
                     f_values = []
+                    
                     for var_val in var_range:
                         default_parameters = copy.deepcopy(parameters)
                         default_parameters[param_name][inner_param_name] = var_val 
                         f_values.append(f(default_parameters))
 
-                    # calculate the biggest absolute difference and update the max_dev_dict
+                    # Calculate the biggest absolute difference and update the max_dev_dict
                     max_diff = max_absolute_difference(f_values)
                     max_dev_dict[param_name][inner_param_name] = max_diff
                     
-            else: # the range of the inner_default_values is [0,1]
+            else: # The range of the inner_default_values is [0,1]
                 max_dev_dict[param_name] = dict()
                 for inner_param_name, inner_default_value in default_value.items():
 
@@ -132,7 +131,7 @@ def calculate_max_deviation(parameters, pertubation_size):
                     max_diff = max_absolute_difference(f_values)
                     max_dev_dict[param_name][inner_param_name] = max_diff
                     
-        else: # default_value is a float
+        else: # Default_value is a float
 
             f_values = []
             for var_val in proportional_range:
@@ -142,6 +141,7 @@ def calculate_max_deviation(parameters, pertubation_size):
 
             max_diff = max_absolute_difference(f_values) 
             max_dev_dict[param_name] = max_diff
+            
     return max_dev_dict
 
 parameters = {
