@@ -19,9 +19,9 @@ from datetime import datetime
 # NUMBER OF NODES: Sets the total population size within the network.
 # DELAY: Time between each update
 # INITIAL OUTBREAK PROPORTION: Sets the percentage of people who have HIV at t = 0
-# INTERACTION SEED: Controls the randomness of virus transmission, state changes etc.
-# USE INTERACTION SEED CHECKBOX:
-#     - CHECKED: Uses the fixed "Interaction Seed" for 100% reproducible results.
+# MODEL SEED: Controls the randomness of virus transmission, state changes etc.
+# USE MODEL SEED CHECKBOX:
+#     - CHECKED: Uses the fixed "Model Seed" for 100% reproducible results.
 #     - UNCHECKED: Interactions are fully randomized every time the model runs.
 # NETWORK SEED: Generates a consistent, specific network structure (topology).
 # MAX TIMESTEPS: Sets the amount of weeks the simulation will run.
@@ -662,7 +662,7 @@ stats_fig.subplots_adjust(hspace=0.4, wspace=0.4)
 
 PLOT_1_KEYS = ["susceptible"]
 PLOT_2_KEYS = ["acute"]
-PLOT_3_KEYS = ["chronic","acute"]
+PLOT_3_KEYS = ["chronic"]
 PLOT_4_KEYS = ["aids", "dead"]
 
 stats_canvas = FigureCanvasTkAgg(stats_fig, master=stats_frame)
@@ -801,7 +801,7 @@ initial_outbreak_prop_input = add_variable_block(
 )
 
 seed_input = add_variable_block(
-    controls_frame, "Interaction seed:", "number", 42, value_type="int",
+    controls_frame, "Model seed:", "number", 42, value_type="int",
     label_row=15, entry_row=15, entry_col=1
 )
 
@@ -809,7 +809,7 @@ use_seed_var = ctk.BooleanVar(value=False)
 
 use_seed_chk = ctk.CTkCheckBox(
     controls_frame,
-    text="Use  interaction seed",
+    text="Use model seed",
     variable=use_seed_var
 )
 use_seed_chk.grid(row=15, column=2, padx=15, pady=5, sticky="w")
@@ -861,5 +861,6 @@ redraw()
 
 
 window.mainloop()
+
 
 
