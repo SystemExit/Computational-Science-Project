@@ -374,29 +374,33 @@ def show_stats_plot():
 
 def plot_states(ax, data, keys, colors=None):
     """
-    Plots median line and Q1–Q3 band for each key per timestep.
+    Plot median lines and Q1-Q3 for selected states over time.
     """
+    # Clear the plot and exit if there is no data
     ax.clear()
     if not data:
         return
 
+    # Normalize data to be safe
     if isinstance(data[0], dict):
         runs = [data]
     else:
         runs = data
 
+    # Determine how many timesteps all runs share
     T = min(len(r) for r in runs)
     if T == 0:
         return
 
     timesteps = np.arange(T)
 
+    # Plot median and IQR for each state
     for key in keys:
         vals = np.array([[r[t][key] for t in range(T)] for r in runs], dtype=float)
 
-        median = np.median(vals, axis=0) 
-        q1 = np.quantile(vals, 0.25, axis=0)         
-        q3 = np.quantile(vals, 0.75, axis=0)         
+        median = np.median(vals, axis=0)
+        q1 = np.quantile(vals, 0.25, axis=0)
+        q3 = np.quantile(vals, 0.75, axis=0)
 
         color = colors.get(key) if colors else None
 
@@ -405,22 +409,19 @@ def plot_states(ax, data, keys, colors=None):
 
     ax.legend()
 
+
 def redraw_stats():
     """
     Update the statistics plots to reflect the current simulation state.
-
-    Plots the time evolution of each epidemiological state using the
-    stored state history, updates subplot titles and axis labels, sets
-    a shared figure title with the current timestep and total number of
-    nodes, and refreshes the statistics canvas.
     """
+    # Replot each stats panel from the models' saved state history
     plot_states(stats_ax_1, [m.states_per_time for m in models], PLOT_1_KEYS, colors=state_colors)
     plot_states(stats_ax_2, [m.states_per_time for m in models], PLOT_2_KEYS, colors=state_colors)
     plot_states(stats_ax_3, [m.states_per_time for m in models], PLOT_3_KEYS, colors=state_colors)
     plot_states(stats_ax_4, [m.states_per_time for m in models], PLOT_4_KEYS, colors=state_colors)
 
+    # Set titles and axis labels for all subplots
     n = model.graph.number_of_nodes()
-
     stats_ax_1.set_title("Susceptible")
     stats_ax_2.set_title("Acute")
     stats_ax_3.set_title("Chronic")
@@ -430,6 +431,7 @@ def redraw_stats():
         ax.set_xlabel("t (weeks)")
         ax.set_ylabel("People")
 
+    # Update the overall figure title and refresh the canvas
     stats_fig.suptitle(f"t = {t}   |   nodes = {n}")
     stats_canvas.draw_idle()
 
@@ -437,25 +439,29 @@ def export_csv_raw_runs(output_dir=None):
     """
     Export raw state counts for each iteration at each timestep.
     """
+    # Choose output directory (default: sim_results)
     if output_dir is None:
         data_dir = Path("sim_results")
     else:
         data_dir = Path(output_dir)
-
     data_dir.mkdir(parents=True, exist_ok=True)
 
+    # States to export for each run
     KEYS = ["susceptible", "acute", "chronic", "aids", "dead"]
 
+    # Read current simulation settings for metadata
     mode = mode_var.get()
     prep = float(prep_amount_input.get())
-    max_week = t  
+    max_week = t
     prep_pct = int(prep * 100)
     nodes = int(num_nodes_input.get())
     net_seed = int(network_seed_input.get())
     iters = int(iterations_input.get())
 
+    # Timestamp to keep filenames unique
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
+    # Build a descriptive filename with all key parameters
     filename = (
         f"{mode}"
         f"_prep{prep_pct}"
@@ -465,29 +471,34 @@ def export_csv_raw_runs(output_dir=None):
         f"_iters{iters}"
         f"_RAW__{timestamp}.csv"
     )
-
     filepath = data_dir / filename
 
+    # Collect state history for each model run
     runs = [m.states_per_time for m in models]
     num_runs = len(runs)
     T = max_week + 1
 
+    # Open the CSV file and write data
     with open(filepath, "w", newline="") as f:
         writer = csv.writer(f)
 
+        # Create header: one column per state per run
         header = ["week", "mode", "prep"]
         for run_idx in range(num_runs):
             for k in KEYS:
                 header.append(f"{k}_{run_idx+1}")
         writer.writerow(header)
 
+        # Write one row per timestep
         for week in range(T):
             row = [week, mode, prep]
 
+            # Append state counts for each run
             for r in runs:
                 if week < len(r):
                     d = r[week]
                 else:
+                    # Fill missing timesteps with zeros
                     d = {k: 0 for k in KEYS}
 
                 for k in KEYS:
@@ -501,20 +512,28 @@ def create_models():
     """
     Create a list of models for multiple iterations (runs).
     """
+    # Number of simulation runs to create
     k = int(iterations_input.get())
 
     models = []
+
+    # Create each model one by one
     for i in range(k):
+        # Update the window title to show progress
         window.title(f"Network Model | Creating model {i+1}/{k}")
         window.update()
+
+        # Initialize a new model using current input settings
         models.append(NetworkModel(
             seed=(int(seed_input.get()) + i) if use_seed_var.get() else None,
             network_seed=int(network_seed_input.get()),
             num_nodes=int(num_nodes_input.get()),
-            initial_outbreak_proportion=float(initial_outbreak_prop_input.get()), 
-            mode = mode_var.get(),
-            prep_amount = float(prep_amount_input.get()),
+            initial_outbreak_proportion=float(initial_outbreak_prop_input.get()),
+            mode=mode_var.get(),
+            prep_amount=float(prep_amount_input.get()),
         ))
+
+    # Final title update when all models are ready
     window.title(f"Network Model | Ready ({k} runs)")
     return models
 
@@ -528,28 +547,31 @@ def batch_export():
     # EDIT THESE VALUES ONLY
     #===========================================================================================================================================
 
+    # The example below this will create 20 csv files, each prep value for standard mode and each prep value for targeted_m_hetero
+    # prep_values = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    # modes = ["standard", "targeted_m_hetero"]
+    
+    # Note down each prep value it should simulate in the list
     prep_values = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
+    # Note down which target modes it should include
     modes = [
         "standard"
 
-        #targeted_m_homo",
-        #targeted_m_hetero",
-        #"targeted_m_bi",
-
-        #"targeted_f_homo",
-        #"targeted_f_hetero",
-        #targeted_f_bi",
-
-        # targeted_homosexual
-        #"targeted_heterosexual",
-        #"targeted_bisexual"
-
-        #"targeted_male",
-        #"targeted_female"
-
+        # "targeted_m_homo",
+        # "targeted_m_hetero",
+        # "targeted_m_bi",
+        # "targeted_f_homo",
+        # "targeted_f_hetero",
+        # "targeted_f_bi",
+        # "targeted_homosexual",
+        # "targeted_heterosexual",
+        # "targeted_bisexual",
+        # "targeted_male",
+        # "targeted_female"
     ]
 
+    # Fixed settings for every run so data can easily be compared
     max_t = 520
     iterations = 50
     num_nodes = 1000
@@ -557,21 +579,22 @@ def batch_export():
 
     #===========================================================================================================================================
 
-    #===========================================================================================================================================
-
+    # Stop any animation and force the GUI inputs to the batch values
     running = False
-
     max_t_input.set(max_t)
     iterations_input.set(iterations)
     num_nodes_input.set(num_nodes)
     network_seed_input.set(network_seed)
 
-    data_root = Path("data")
+    # Create the main output folder (and per-mode folders inside it)
+    data_root = Path("sim_results")
     data_root.mkdir(exist_ok=True)
 
+    # Progress tracking for the window title
     total_jobs = len(modes) * len(prep_values)
     job = 1
 
+    # Loop over each mode, then each PrEP value, run the simulation, and export
     for mode in modes:
         mode_var.set(mode)
 
@@ -579,27 +602,31 @@ def batch_export():
         mode_dir.mkdir(exist_ok=True)
 
         for prep_val in prep_values:
+            # Set PrEP for this job and reset time
             prep_val = float(prep_val)
             prep_amount_input.set(prep_val)
             t = 0
 
-            window.title(
-                f"Batch export {job}/{total_jobs} | mode={mode} | PrEP={prep_val}"
-            )
+            # Update the UI so you can see progress
+            window.title(f"Batch export {job}/{total_jobs} | mode={mode} | PrEP={prep_val}")
             window.update_idletasks()
 
             try:
+                # Build models for this job
                 models = create_models()
                 model = models[0]
 
+                # Run the simulation until max_t
                 while t < max_t:
                     for m in models:
                         m.step()
                     t += 1
 
+                # Export raw per-run results into the mode folder
                 export_csv_raw_runs(output_dir=mode_dir)
 
             except ValueError as e:
+                # Safeguard that skips to the next job instead of stopping the code incase one job fials
                 print(
                     f"Skipping mode={mode}, PrEP={prep_val} "
                     f"(reason: {e})"
@@ -861,6 +888,7 @@ redraw()
 
 
 window.mainloop()
+
 
 
 
