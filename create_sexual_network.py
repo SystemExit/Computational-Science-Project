@@ -203,8 +203,8 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
         elif node_class == "female bisexual":
             potential_male_alters = list((male_bisexual_nodes | male_heterosexual_nodes) - {node} - set(H.neighbors(node)))
             potential_female_alters = list(female_bisexual_nodes - {node} - set(H.neighbors(node)))
-            male_degree = min(random.choice(degrees_per_class["male bisexual"]["male degree"]) - H.degree(node), len(potential_male_alters))
-            female_degree = min(random.choice(degrees_per_class["male bisexual"]["female degree"]) - H.degree(node), len(potential_female_alters))
+            male_degree = min(random.choice(degrees_per_class["female bisexual"]["male degree"]) - H.degree(node), len(potential_male_alters))
+            female_degree = min(random.choice(degrees_per_class["female bisexual"]["female degree"]) - H.degree(node), len(potential_female_alters))
             if male_degree > 0 and female_degree <= 0:
                 chosen_alters = random.sample(potential_male_alters, male_degree)
             elif female_degree > 0 and male_degree <= 0:
@@ -217,15 +217,12 @@ def create_sexual_network(N=1000, pr_infected_initial=0.01, seed=None, pr_male_h
             H.add_edge(node, chosen_alter)        
     
     # # # 3. Lastly we simulate infecting an initial part of the population
-    
-    # Variables concerning nodes in Egodyads network.
     classes = ["male homosexual", "male heterosexual", "male bisexual", "female homosexual", "female heterosexual", "female bisexual"]
     class_and_nodes = {klasse: set() for klasse in classes}
     for node in H:
         node_class = H.nodes[node]["klasse"]
         class_and_nodes[node_class].add(node)
-      
-    # Variables concerning nodes in Egodyads network that were tested for HIV.
+    
     total_positive = len(HIV_positive)
     pr_infected_per_class = {klasse: 0 for klasse in classes} # proportion of infected nodes that belonged to class klasse
     
