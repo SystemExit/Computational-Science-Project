@@ -128,7 +128,7 @@ The graphical user interface (GUI) allows you to configure, run, and analyze sim
 4. Wait for all models to be created (more iterations > longer waiting time).
 5. Press **Start** to run the simulation.
 6. Switch between **Network View** and **Stats View** to explore results.
-7. Click **Export CSV** to save data for further analysis.
+7. Click "**Export CSV**" to save data for further analysis.
 8. Your data can be found in the "sim_results" folder.
 
 ### Batch CSV Export Typical Workflow
@@ -138,6 +138,17 @@ The graphical user interface (GUI) allows you to configure, run, and analyze sim
 3. Click **"Batch CSV"**.
 4. Wait for all models to be created (more iterations > longer waiting time).
 5. Your data can be found in the "sim_results" folder.
+
+## GUI Notes
+
+- When a user edits a value in an entry field, it is possible that **CustomTkinter** temporarily reads the field while it is empty.  
+  This can produce a warning or error message in the terminal.  
+  These messages can be safely ignored and do not affect the simulation or its results.
+
+- Sliders have predefined minimum and maximum values to guide typical usage.  
+  If a user wishes to use a value outside these bounds, they may manually enter it in the corresponding entry field and the model will still run.  
+  However, results outside these bounds may be unreliable.
+
 
 ## Parameters of the HIV model based on literature: description, reference.  
 `acute_multiplier`: how much more likely it is for infection to take place when the infected node is in the acute phase (Hollingsworth et al., 2008)  
