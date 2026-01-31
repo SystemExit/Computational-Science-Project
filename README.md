@@ -145,8 +145,8 @@ The graphical user interface (GUI) allows you to configure, run, and analyze sim
   This can produce a warning or error message in the terminal.  
   These messages can be safely ignored and do not affect the simulation or its results.
 
-- Sliders have predefined minimum and maximum values to guide typical usage.  
-  If a user wishes to use a value outside these bounds, they may manually enter it in the corresponding entry field and the model will still run.  
+- Sliders have predefined minimum and maximum values to guide typical usage. If a user wishes to use a value outside these bounds,
+  they may manually enter it in the corresponding entry field and the model will still run.  
   However, results outside these bounds may be unreliable.
 
 
