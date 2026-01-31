@@ -133,7 +133,7 @@ The graphical user interface (GUI) allows you to configure, run, and analyze sim
 
 ### Batch CSV Export Typical Workflow
 
-1. Set the desired modes, prep values, timesteps etc. in the **batch_export()** function.
+1. Set the desired modes, prep values, timesteps etc. in the **batch_export()** function (in visuals.py).
 2. Run visuals.py.
 3. Click **"Batch CSV"**.
 4. Wait for all models to be created (more iterations > longer waiting time).
