@@ -640,6 +640,7 @@ def batch_export():
 # GLOBAL SETTINGS
 #===========================================================================================================================================
 
+# App look and main window creation
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("red_theme.json")
 
@@ -647,6 +648,10 @@ window = ctk.CTk()
 window.title("Network Model")
 window.geometry("1920x1080")
 
+# Main layout frames
+#   - controls_frame: left side controls
+#   - plot_frame: right side network plot
+#   - stats_frame: right side stats plots (hidden at start)
 controls_frame = ctk.CTkFrame(window, fg_color="transparent")
 controls_frame.grid(row=0, column=0, sticky="nw", padx=15, pady=15)
 
@@ -665,6 +670,7 @@ stats_frame.grid_remove()
 window.grid_columnconfigure(1, weight=1)  
 window.grid_rowconfigure(0, weight=1)
 
+# Network plot
 fig = Figure(figsize=(6, 5), dpi=100)
 ax = fig.add_subplot(111)
 ax.set_axis_off()
@@ -678,6 +684,7 @@ canvas.get_tk_widget().grid(
     pady=10
 )
 
+# Stats plot
 stats_fig = Figure(figsize=(6, 6), dpi=100)
 
 stats_ax_1 = stats_fig.add_subplot(221)
@@ -687,6 +694,7 @@ stats_ax_4 = stats_fig.add_subplot(224)
 
 stats_fig.subplots_adjust(hspace=0.4, wspace=0.4)
 
+# User can decide which state is plotted in which graph by simply adding them as a key, can plot multiple lines
 PLOT_1_KEYS = ["susceptible"]
 PLOT_2_KEYS = ["acute"]
 PLOT_3_KEYS = ["chronic"]
@@ -701,6 +709,7 @@ stats_canvas.get_tk_widget().grid(
     pady=10
 )
 
+# Set the colors for each state
 state_colors = {
     "susceptible": "lightgray",
     "acute": "red",
@@ -709,6 +718,7 @@ state_colors = {
     "dead": "black",
 }
 
+# Control buttons
 reset_btn = ctk.CTkButton(
     controls_frame,
     text="Default Settings",
@@ -748,6 +758,7 @@ export_btn = ctk.CTkButton(
 )
 export_btn.grid(row=23, column=2, padx=15, pady=(10, 10), sticky="w")
 
+# Toggle buttons for network and stats view
 network_view_btn = ctk.CTkButton(
     controls_frame,
     text="Network view",
@@ -772,6 +783,7 @@ stats_view_btn = ctk.CTkButton(
 )
 stats_view_btn.grid(row=0, column=1, padx=(15), pady=(5, 10), sticky="w")
 
+# Dropdown menu for the target mode
 mode_var = ctk.StringVar(value="standard")
 
 mode_menu = ctk.CTkOptionMenu(
@@ -796,8 +808,10 @@ mode_menu = ctk.CTkOptionMenu(
     dropdown_hover_color="#f0f0f0",
 )
 
+# Stores data for the reset_model() function
 settings = []
 
+# Bulk CSV export button, see batch_export() to edit what files to export
 batch_btn = ctk.CTkButton(
     controls_frame,
     text="Batch CSV",
@@ -888,6 +902,7 @@ redraw()
 
 
 window.mainloop()
+
 
 
 
