@@ -1,0 +1,5 @@
+numpy>=1.22
+pandas>=1.5
+networkx>=3.0
+matplotlib>=3.7
+customtkinter>=5.2
