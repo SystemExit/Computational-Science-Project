@@ -37,11 +37,11 @@ c_st = df_st[[c for c in df_st.columns if 'chronic' in c]]
 
 plt.figure(figsize=(14, 7))
 
-plt.plot(ac_st.median(axis=1), color='gray', label='Acute')
-plt.fill_between(ac_st.index, ac_st.quantile(0.25, axis=1), ac_st.quantile(0.75, axis=1), color='gray', alpha=0.2)
+plt.plot(ac_st.median(axis=1), color='#7b0306', label='Acute')
+plt.fill_between(ac_st.index, ac_st.quantile(0.25, axis=1), ac_st.quantile(0.75, axis=1), color='#7b0306', alpha=0.2)
 
-plt.plot(c_st.median(axis=1), color='#7b0306', label='Chronic')
-plt.fill_between(c_st.index, c_st.quantile(0.25, axis=1), c_st.quantile(0.75, axis=1), color='#7b0306', alpha=0.2)
+plt.plot(c_st.median(axis=1), color='gray', label='Chronic')
+plt.fill_between(c_st.index, c_st.quantile(0.25, axis=1), c_st.quantile(0.75, axis=1), color='gray', alpha=0.2)
 
 plt.title('Acute vs Chronic population (standard mode)', fontsize=14, fontweight='bold')
 plt.xlabel('t (weeks)', fontsize=12)
@@ -75,6 +75,7 @@ plt.savefig(filename, dpi=300, bbox_inches='tight')
 print(f"Saved: {filename}")
 plt.show()
 plt.show()
+
 
 
 
