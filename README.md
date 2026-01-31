@@ -1,3 +1,9 @@
+Required packages can be found in requirements.txt 
+Python >= 3.9 required
+### Linux users
+Tkinter is required and may need to be installed separately:
+bash: sudo apt install python3-tk
+
 **Files and description**
 Link to the network data used for the model can be found in README in the data directory.
 
