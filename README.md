@@ -46,16 +46,16 @@ Note: for the GUI to work optimally, the user is urged to use full-screen mode.
 
 
 ## Parameters of the HIV model based on literature: description, reference.  
-`acute_multiplier`: how much more likely it is for infection to take place when the infected node is in the acute phase (Hollingsworth et al., 2008)
-`acute_to_chronic`: amount of weeks from initial infection until the chronic stage. (Hollingsworth et al., 2008)
-`aids_multiplier`: how much more likely it is for infection to take place when the infected node is in the aids phase (Hollingsworth et al., 2008)
-`art_multiplier`: proportion of infection probability left over with infected person taking ART (Cohen et al. 2011)
-`check_frequencies`: weekly probability for a node in each class to get an STI check (Stichting HIV Monitoring, 2023; CDC guidelines)
-`chronic_to_aids`: amount of weeks from initial infection to aids stage (without medicine). (CASCADE, 2000)
-`condom_usage`: proportion of sexual interactions that involve the use of condoms out of all interactions between two gender types (Reece et al. 2010.)
-`condom_efficacy`: proportion of sexual interactions that result in the transmission of HIV out of all interactions that involve the use of condoms between two genders (Smith et al., 1999; Weller et al., 1996). (if condom is 90% effective, condom_efficacy = 0.1)
-`prep_multiplier`: proportion of infection probability left over with susceptible person taking PrEP(McCormack et al. 2016)
-`sexual_frequencies`: amount of sexual acts per week, per sexual class (used in 'create_sexual_network.py'). (Mercer et al., 2013)
+`acute_multiplier`: how much more likely it is for infection to take place when the infected node is in the acute phase (Hollingsworth et al., 2008)  
+`acute_to_chronic`: amount of weeks from initial infection until the chronic stage. (Hollingsworth et al., 2008)  
+`aids_multiplier`: how much more likely it is for infection to take place when the infected node is in the aids phase (Hollingsworth et al., 2008)  
+`art_multiplier`: proportion of infection probability left over with infected person taking ART (Cohen et al. 2011)  
+`check_frequencies`: weekly probability for a node in each class to get an STI check (Stichting HIV Monitoring, 2023; CDC guidelines)  
+`chronic_to_aids`: amount of weeks from initial infection to aids stage (without medicine). (CASCADE, 2000)  
+`condom_usage`: proportion of sexual interactions that involve the use of condoms out of all interactions between two gender types (Reece et al. 2010.)  
+`condom_efficacy`: proportion of sexual interactions that result in the transmission of HIV out of all interactions that involve the use of condoms between two genders (Smith et al., 1999; Weller et al., 1996). (if condom is 90% effective, condom_efficacy = 0.1)  
+`prep_multiplier`: proportion of infection probability left over with susceptible person taking PrEP(McCormack et al. 2016)  
+`sexual_frequencies`: amount of sexual acts per week, per sexual class (used in 'create_sexual_network.py'). (Mercer et al., 2013)  
 `virus_spread_...`: base probability of a susceptible node contracting HIV from an infected node when a sexual interaction occurs, depending on genders of both nodes. (Patel et al., 2014)
 
 *If multiple empirical parameter values were reported, e.g. condom usage reported by heterosexual men and condom usage reported by heterosexual women, the mean of the reported values was assigned as parameter value.
