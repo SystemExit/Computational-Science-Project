@@ -215,11 +215,11 @@ class NetworkModel():
 
     def sexual_act(self, node1:int, node2:int, weight:float|None) -> None:
         """
-        Perform a sexual act an possibly infect 
+        Perform a sexual act and possibly infect sexual partner.
 
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_size=1, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=1, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
         ...    self.condom_usage = {'male-male': 0.0, 'male-female': 0.0, 'female-male': 0.0, 'female-female': 0.0}
         ...    model.sexual_act(0, 1, 1)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
@@ -228,7 +228,7 @@ class NetworkModel():
         True
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_size=0, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=0, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
         ...    model.sexual_act(0, 1, 1)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
         ...    states.append(state1 == 'susceptible' and state2 == 'susceptible')
@@ -236,7 +236,7 @@ class NetworkModel():
         True
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_size=1)
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=1)
         ...    model.sexual_act(0, 1, 0)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
         ...    states.append((state1 == 'acute' and state2 == 'susceptible') or (state1 == 'susceptible' and state2 == 'acute'))
@@ -244,7 +244,7 @@ class NetworkModel():
         True
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_size=1, virus_spread_msm=0, virus_spread_msf=0, virus_spread_fsm=0, virus_spread_fsf=0)
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=1, virus_spread_msm=0, virus_spread_msf=0, virus_spread_fsm=0, virus_spread_fsf=0)
         ...    model.sexual_act(0, 1, 1)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
         ...    states.append((state1 == 'acute' and state2 == 'susceptible') or (state1 == 'susceptible' and state2 == 'acute'))
@@ -347,6 +347,7 @@ if __name__ == '__main__':
         model.step()
     print('Model states after 520 weeks (10 years)')
     print(model.count_states())
+
 
 
 
