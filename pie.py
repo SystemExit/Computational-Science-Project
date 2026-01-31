@@ -1,4 +1,8 @@
 import matplotlib.pyplot as plt
+import os
+
+# make sure 'plots' directory exists to safe plots in
+os.makedirs('plots', exist_ok=True)
 
 # Create pie plot of class distribution in the network made with network_seed = 67
 labels = ['m_homo', 'm_hetero', 'm_bi', 'f_homo', 'f_hetero', 'f_bi']
@@ -16,7 +20,10 @@ colors = [
 plt.figure(figsize=(6, 4))
 plt.pie(values, colors=colors, startangle=90)
 plt.title('Population Distribution')
-
 plt.legend(labels, loc='lower center', ncol=6, bbox_to_anchor=(0.5, -0.15))
+filename = 'plots/class_distribution.png'
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+print(f"Saved: {filename}")
 plt.show()
+
 
