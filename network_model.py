@@ -135,30 +135,30 @@ class NetworkModel():
         Returns dictionary with all current states and klasses of infected people.
 
         >>> model = NetworkModel()
-        >>> nodes = [(0, {'state': 'susceptible', 'gender': 'male', 'klasse':'male homosexual'}), 
-        ... (1, {'state': 'susceptible', 'gender': 'male', 'klasse':'male heterosexual'}), 
-        ... (2, {'state': 'susceptible', 'gender': 'female', 'klasse':'female heterosexual'}),
-        ... (3, {'state': 'susceptible', 'gender': 'male', 'klasse':'male homosexual'}), ]
+        >>> nodes = [(0, {'state': 'susceptible', 'gender': 'male', 'klasse':'male homosexual', 'intervention': 'none'}), 
+        ... (1, {'state': 'susceptible', 'gender': 'male', 'klasse':'male heterosexual', 'intervention': 'none'}), 
+        ... (2, {'state': 'susceptible', 'gender': 'female', 'klasse':'female heterosexual', 'intervention': 'none'}),
+        ... (3, {'state': 'susceptible', 'gender': 'male', 'klasse':'male homosexual', 'intervention': 'none'}), ]
         >>> edges = [(0, 3), (1, 2)]
         >>> G = nx.Graph(); G.add_nodes_from(nodes); G.add_edges_from(edges)
         >>> model.graph = G
         >>> model.count_states()
         {'susceptible': 4, 'acute': 0, 'chronic': 0, 'aids': 0, 'dead': 0, 'male homosexual': 0, 'male heterosexual': 0, 'male bisexual': 0, 'female homosexual': 0, 'female heterosexual': 0, 'female bisexual': 0, 'prep': 0, 'art': 0}
 
-        >>> nodes = [(0, {'state': 'acute', 'gender': 'male', 'klasse':'male homosexual'}), 
-        ... (1, {'state': 'susceptible', 'gender': 'male', 'klasse':'male heterosexual'}), 
-        ... (2, {'state': 'susceptible', 'gender': 'female', 'klasse':'female heterosexual'}),
-        ... (3, {'state': 'susceptible', 'gender': 'male', 'klasse':'male homosexual'}), ]
+        >>> nodes = [(0, {'state': 'acute', 'gender': 'male', 'klasse':'male homosexual', 'intervention': 'none'}), 
+        ... (1, {'state': 'susceptible', 'gender': 'male', 'klasse':'male heterosexual', 'intervention': 'none'}), 
+        ... (2, {'state': 'susceptible', 'gender': 'female', 'klasse':'female heterosexual', 'intervention': 'none'}),
+        ... (3, {'state': 'susceptible', 'gender': 'male', 'klasse':'male homosexual', 'intervention': 'none'}), ]
         >>> edges = [(0, 3), (1, 2)]
         >>> G = nx.Graph(); G.add_nodes_from(nodes); G.add_edges_from(edges)
         >>> model.graph = G
         >>> model.count_states()
         {'susceptible': 3, 'acute': 1, 'chronic': 0, 'aids': 0, 'dead': 0, 'male homosexual': 1, 'male heterosexual': 0, 'male bisexual': 0, 'female homosexual': 0, 'female heterosexual': 0, 'female bisexual': 0, 'prep': 0, 'art': 0}
 
-        >>> nodes = [(0, {'state': 'acute', 'gender': 'male', 'klasse':'male homosexual'}), 
-        ... (1, {'state': 'acute', 'gender': 'male', 'klasse':'male heterosexual'}), 
-        ... (2, {'state': 'chronic', 'gender': 'female', 'klasse':'female heterosexual'}),
-        ... (3, {'state': 'aids', 'gender': 'male', 'klasse':'male homosexual'}), ]
+        >>> nodes = [(0, {'state': 'acute', 'gender': 'male', 'klasse':'male homosexual', 'intervention': 'none'}), 
+        ... (1, {'state': 'acute', 'gender': 'male', 'klasse':'male heterosexual', 'intervention': 'none'}), 
+        ... (2, {'state': 'chronic', 'gender': 'female', 'klasse':'female heterosexual', 'intervention': 'none'}),
+        ... (3, {'state': 'aids', 'gender': 'male', 'klasse':'male homosexual', 'intervention': 'none'}), ]
         >>> edges = [(0, 3), (1, 2)]
         >>> G = nx.Graph(); G.add_nodes_from(nodes); G.add_edges_from(edges)
         >>> model.graph = G
@@ -219,8 +219,8 @@ class NetworkModel():
 
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=1, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
-        ...    self.condom_usage = {'male-male': 0.0, 'male-female': 0.0, 'female-male': 0.0, 'female-female': 0.0}
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=0.5, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
+        ...    model.condom_usage = {'male-male': 0.0, 'male-female': 0.0, 'female-male': 0.0, 'female-female': 0.0}
         ...    model.sexual_act(0, 1, 1)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
         ...    states.append(state1 == 'acute' and state2 == 'acute')
@@ -228,7 +228,7 @@ class NetworkModel():
         True
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=0, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=0.0, virus_spread_msm=1, virus_spread_msf=1, virus_spread_fsm=1, virus_spread_fsf = 1)
         ...    model.sexual_act(0, 1, 1)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
         ...    states.append(state1 == 'susceptible' and state2 == 'susceptible')
@@ -236,7 +236,7 @@ class NetworkModel():
         True
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=1)
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=0.5)
         ...    model.sexual_act(0, 1, 0)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
         ...    states.append((state1 == 'acute' and state2 == 'susceptible') or (state1 == 'susceptible' and state2 == 'acute'))
@@ -244,7 +244,7 @@ class NetworkModel():
         True
         >>> states = []
         >>> for _ in range(10):
-        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=1, virus_spread_msm=0, virus_spread_msf=0, virus_spread_fsm=0, virus_spread_fsf=0)
+        ...    model = NetworkModel(num_nodes = 2, initial_outbreak_proportion=0.5, virus_spread_msm=0, virus_spread_msf=0, virus_spread_fsm=0, virus_spread_fsf=0)
         ...    model.sexual_act(0, 1, 1)
         ...    state1, state2 = model.graph.nodes[0]['state'], model.graph.nodes[1]['state']
         ...    states.append((state1 == 'acute' and state2 == 'susceptible') or (state1 == 'susceptible' and state2 == 'acute'))
